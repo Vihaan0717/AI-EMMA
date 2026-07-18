@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # Layer 1: Frontend CDN/Vite Dev Server
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - VITE_API_URL=http://backend:8765
+    depends_on:
+      - backend
+    networks:
+      - jarvis-network
+
+  # Layer 2: Backend / APIs & Brain
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "8765:8765" # Avatar WebSocket
+      - "8000:8000" # FastAPI
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - MONGO_URL=mongodb://mongodb:27017
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ../backend:/app
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - jarvis-network
+
+  # Layer 3: Database & Caching
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - jarvis-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - jarvis-network
+
+  # Layer 11: Monitoring & Logging
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./grafana/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - jarvis-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - jarvis-network
+
+networks:
+  jarvis-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

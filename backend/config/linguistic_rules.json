@@ -1,0 +1,27 @@
+{
+    "vocabulary": {
+        "anni": {
+            "meaning": "all/everything",
+            "category": "quantifier",
+            "language": "telugu"
+        },
+        "ra": {
+            "meaning": "casual suffix",
+            "category": "marker",
+            "language": "telugu"
+        },
+        "garu": {
+            "meaning": "respectful suffix",
+            "category": "marker",
+            "language": "telugu"
+        }
+    },
+    "name_exceptions": [
+        "anni",
+        "ra",
+        "garu",
+        "meeru",
+        "aap"
+    ],
+    "code_switching_patterns": []
+}

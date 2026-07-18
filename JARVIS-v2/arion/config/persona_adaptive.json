@@ -1,0 +1,12 @@
+{
+  "emotional_state": "Neutral",
+  "humor_level": 50,
+  "empathy_level": 80,
+  "communication_style": {
+    "formality": 50,
+    "sarcasm": 20,
+    "verbosity": 60
+  },
+  "learned_preferences": [],
+  "relationship_modifiers": {}
+}

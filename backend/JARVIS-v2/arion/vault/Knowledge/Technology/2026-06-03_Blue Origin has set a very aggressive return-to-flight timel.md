@@ -1,0 +1,23 @@
+---
+title: "Blue Origin has set a very aggressive return-to-flight timeline"
+source: https://arstechnica.com/space/2026/06/blue-origin-vows-to-fly-its-new-glenn-rocket-before-the-end-of-this-year/
+date: 2026-06-03
+tags:
+  - news
+  - auto-learning
+  - auto-injected
+---
+
+# Blue Origin has set a very aggressive return-to-flight timeline
+
+The chief executive of Blue Origin, whose large New Glenn rocket exploded spectacularly less than a week ago at the company’s launch site in Florida, vowed Monday night that the company would launch again before the end of 2026.
+Writing on the social media site X, Blue Origin’s Dave Limp said the company had been able to complete a preliminary survey of the LC-36A launch site.
+“Now that we’ve had access to the pad and integration facility, we can share a bit of good news,” Limp said. “The propellant farm, oxygen, liquid hydrogen and LNG tanks are all in good shape. This is good luck because these are very long lead items. The water tower is also good.”
+No need for new transporter
+Limp also confirmed that the company would press ahead with a rebuild of the LC-36A site, which is designed for the 7×2 variant of the New Glenn rocket. One option had been to focus on building a larger pad next door, at LC-36B, capable of supporting the larger 9×4 variant of the rocket (the nine and four, respectively, refer to the number of engines in the first and second stage of the rocket).
+Notably, Limp also said Blue Origin had a plan to replace the massive transporter-erector that moves the New Glenn rocket from its nearby integration hangar out to the launch pad. This was damaged beyond repair during the test failure on Thursday, May 28.
+“We had already been working for some time on eliminating our transporter-erector in favor of an alternative vertical conop, and we’ll now go directly to that; so we don’t need a new transporter-erector,” Limp wrote. “We will fly again before the end of this year.”
+With this update, Limp has answered some of the key questions Blue Origin faced in the aftermath of Thursday’s dramatic failure. Most significantly, the company intends to rebuild the damaged launch site and return to flight as rapidly as possible with the 7×2 variant of the New Glenn booster that had previously performed very well. With this aggressive timeline—about six months—the company may also be indicating a desire to limit discussion of launching its Blue Moon lander on the Falcon Heavy rocket built by its competitor, SpaceX.
+
+---
+*Synthesized by AutonomousLearner*

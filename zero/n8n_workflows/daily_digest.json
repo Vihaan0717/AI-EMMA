@@ -1,0 +1,79 @@
+{
+  "name": "Zero - Daily Digest",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "name": "Daily Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://brain:8000/stats",
+        "options": {"timeout": 10000}
+      },
+      "name": "Get System Stats",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://brain:8000/chat",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "Generate a brief daily digest of what happened today: conversations, memories stored, tasks completed. Be concise and friendly."
+            },
+            {
+              "name": "personality",
+              "value": "jarvis"
+            },
+            {
+              "name": "source",
+              "value": "system"
+            }
+          ]
+        }
+      },
+      "name": "Generate Digest",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$env.TELEGRAM_OWNER_CHAT_ID}}",
+        "text": "=📊 *Daily Zero Digest*\n\n{{ $json.response }}\n\n_Generated automatically by Project Zero_",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "name": "Send Digest",
+      "type": "n8n-nodes-base.telegram",
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Daily Schedule": {
+      "main": [[{"node": "Get System Stats", "type": "main", "index": 0}]]
+    },
+    "Get System Stats": {
+      "main": [[{"node": "Generate Digest", "type": "main", "index": 0}]]
+    },
+    "Generate Digest": {
+      "main": [[{"node": "Send Digest", "type": "main", "index": 0}]]
+    }
+  }
+}

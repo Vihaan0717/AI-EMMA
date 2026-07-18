@@ -1,0 +1,278 @@
+{
+  "saved_at": "2026-06-06T09:11:06.127960",
+  "neurons": [
+    {
+      "id": "741bfab6-e7ae-40d2-b475-067897739af3",
+      "label": "chala",
+      "neuron_type": "word",
+      "memory_layer": "long_term",
+      "data": {
+        "english": "very much",
+        "telugu": "చాలా",
+        "hindi": "बहुत"
+      },
+      "strength": 0.9500000000000002,
+      "activation_count": 3,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.085022",
+      "last_fired": "2026-06-06T09:11:06.116211",
+      "last_updated": "2026-06-06T09:11:06.116273",
+      "language": "telugu",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "ad1cc123-34c8-4502-a65a-19e07faef2d3",
+      "label": "bagundi",
+      "neuron_type": "word",
+      "memory_layer": "long_term",
+      "data": {
+        "english": "good/it is good",
+        "telugu": "బాగుంది"
+      },
+      "strength": 0.9000000000000001,
+      "activation_count": 2,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.088917",
+      "last_fired": "2026-06-06T09:11:06.119659",
+      "last_updated": "2026-06-06T09:11:06.119679",
+      "language": "telugu",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "b944c526-4371-493f-a546-533c36de43a1",
+      "label": "naku",
+      "neuron_type": "word",
+      "memory_layer": "long_term",
+      "data": {
+        "english": "to me/I feel",
+        "telugu": "నాకు"
+      },
+      "strength": 0.8,
+      "activation_count": 0,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.090552",
+      "last_fired": "2026-06-06T09:11:06.090568",
+      "last_updated": "2026-06-06T09:11:06.090570",
+      "language": "telugu",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "ebd1c90b-af6f-45c3-af98-2a5f4d208b55",
+      "label": "em",
+      "neuron_type": "word",
+      "memory_layer": "long_term",
+      "data": {
+        "english": "what",
+        "telugu": "ఏం"
+      },
+      "strength": 0.8,
+      "activation_count": 0,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.092411",
+      "last_fired": "2026-06-06T09:11:06.092430",
+      "last_updated": "2026-06-06T09:11:06.092439",
+      "language": "telugu",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "004f4d82-3906-465a-8cc8-611e272e7075",
+      "label": "telugu",
+      "neuron_type": "language",
+      "memory_layer": "long_term",
+      "data": {
+        "family": "Dravidian",
+        "script": "Telugu script"
+      },
+      "strength": 0.8500000000000001,
+      "activation_count": 1,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.095778",
+      "last_fired": "2026-06-06T09:11:06.113629",
+      "last_updated": "2026-06-06T09:11:06.113631",
+      "language": "telugu",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "633bccf2-a80e-447d-ba12-729e6f50c2a7",
+      "label": "hindi",
+      "neuron_type": "language",
+      "memory_layer": "long_term",
+      "data": {
+        "family": "Indo-Aryan",
+        "script": "Devanagari"
+      },
+      "strength": 0.8,
+      "activation_count": 0,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.097801",
+      "last_fired": "2026-06-06T09:11:06.097818",
+      "last_updated": "2026-06-06T09:11:06.097820",
+      "language": "hindi",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "79891f56-4aa1-402d-9f27-f75e6b03e4a2",
+      "label": "happiness",
+      "neuron_type": "emotion",
+      "memory_layer": "long_term",
+      "data": {
+        "valence": "positive",
+        "intensity": 0.8
+      },
+      "strength": 0.9000000000000001,
+      "activation_count": 2,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.100299",
+      "last_fired": "2026-06-06T09:11:06.119683",
+      "last_updated": "2026-06-06T09:11:06.119685",
+      "language": "universal",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "f30e4a16-f146-4567-809e-b28e61b6c718",
+      "label": "sadness",
+      "neuron_type": "emotion",
+      "memory_layer": "long_term",
+      "data": {
+        "valence": "negative",
+        "intensity": 0.7
+      },
+      "strength": 0.8,
+      "activation_count": 0,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.104520",
+      "last_fired": "2026-06-06T09:11:06.104537",
+      "last_updated": "2026-06-06T09:11:06.104539",
+      "language": "universal",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "f6de2ae3-d4a1-42e1-ba5e-4569980a079e",
+      "label": "loneliness",
+      "neuron_type": "emotion",
+      "memory_layer": "long_term",
+      "data": {
+        "valence": "negative",
+        "intensity": 0.6
+      },
+      "strength": 0.8,
+      "activation_count": 0,
+      "confidence": 0.5,
+      "confirmed_by_user": true,
+      "created_at": "2026-06-06T09:11:06.106774",
+      "last_fired": "2026-06-06T09:11:06.106794",
+      "last_updated": "2026-06-06T09:11:06.106797",
+      "language": "universal",
+      "emotion_tag": "neutral",
+      "tags": []
+    },
+    {
+      "id": "cfa64018-161c-4495-bfe6-5dc5fa0f95c0",
+      "label": "Owner",
+      "neuron_type": "person",
+      "memory_layer": "short_term",
+      "data": {
+        "role": "Boss",
+        "closeness_index": 1.0
+      },
+      "strength": 0.1,
+      "activation_count": 0,
+      "confidence": 0.5,
+      "confirmed_by_user": false,
+      "created_at": "2026-06-06T09:11:06.122956",
+      "last_fired": "2026-06-06T09:11:06.122972",
+      "last_updated": "2026-06-06T09:11:06.122975",
+      "language": "unknown",
+      "emotion_tag": "neutral",
+      "tags": []
+    }
+  ],
+  "synapses": [
+    {
+      "id": "5b26cdcb-d716-43a5-80e8-f188cdb84551",
+      "from_neuron_id": "741bfab6-e7ae-40d2-b475-067897739af3",
+      "to_neuron_id": "ad1cc123-34c8-4502-a65a-19e07faef2d3",
+      "synapse_type": "used_with",
+      "weight": 0.8,
+      "activation_count": 0,
+      "reinforcement_count": 0,
+      "last_activated": "2026-06-06T09:11:06.111353",
+      "created_at": "2026-06-06T09:11:06.111358",
+      "bidirectional": true,
+      "context": "",
+      "notes": ""
+    },
+    {
+      "id": "4cdb4278-4bec-40a3-a49f-cce8e383d718",
+      "from_neuron_id": "ad1cc123-34c8-4502-a65a-19e07faef2d3",
+      "to_neuron_id": "741bfab6-e7ae-40d2-b475-067897739af3",
+      "synapse_type": "used_with",
+      "weight": 0.8,
+      "activation_count": 0,
+      "reinforcement_count": 0,
+      "last_activated": "2026-06-06T09:11:06.111402",
+      "created_at": "2026-06-06T09:11:06.111404",
+      "bidirectional": true,
+      "context": "",
+      "notes": ""
+    },
+    {
+      "id": "e1b4b641-8500-460b-ad2e-8e6611aa6071",
+      "from_neuron_id": "741bfab6-e7ae-40d2-b475-067897739af3",
+      "to_neuron_id": "004f4d82-3906-465a-8cc8-611e272e7075",
+      "synapse_type": "belongs_to",
+      "weight": 0.9,
+      "activation_count": 0,
+      "reinforcement_count": 0,
+      "last_activated": "2026-06-06T09:11:06.113711",
+      "created_at": "2026-06-06T09:11:06.113713",
+      "bidirectional": false,
+      "context": "",
+      "notes": ""
+    },
+    {
+      "id": "7b0fe455-ad1e-4c1a-9fb4-2ef5b663aa71",
+      "from_neuron_id": "741bfab6-e7ae-40d2-b475-067897739af3",
+      "to_neuron_id": "79891f56-4aa1-402d-9f27-f75e6b03e4a2",
+      "synapse_type": "triggers",
+      "weight": 0.3,
+      "activation_count": 0,
+      "reinforcement_count": 0,
+      "last_activated": "2026-06-06T09:11:06.116458",
+      "created_at": "2026-06-06T09:11:06.116465",
+      "bidirectional": false,
+      "context": "",
+      "notes": ""
+    },
+    {
+      "id": "9ebde585-c4ec-482f-aa7e-55589df843b7",
+      "from_neuron_id": "ad1cc123-34c8-4502-a65a-19e07faef2d3",
+      "to_neuron_id": "79891f56-4aa1-402d-9f27-f75e6b03e4a2",
+      "synapse_type": "triggers",
+      "weight": 0.7,
+      "activation_count": 0,
+      "reinforcement_count": 0,
+      "last_activated": "2026-06-06T09:11:06.119748",
+      "created_at": "2026-06-06T09:11:06.119751",
+      "bidirectional": false,
+      "context": "",
+      "notes": ""
+    }
+  ]
+}

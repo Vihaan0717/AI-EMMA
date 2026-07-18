@@ -1,0 +1,152 @@
+{
+  "name": "Zero - Telegram 24/7 Bridge",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [240, 300],
+      "webhookId": "telegram-zero-bridge"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.message.text }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Has Text?",
+      "type": "n8n-nodes-base.if",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://brain:8000/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "sender",
+              "value": "={{ $json.message.from.username || $json.message.from.first_name }}"
+            },
+            {
+              "name": "source",
+              "value": "telegram"
+            },
+            {
+              "name": "personality",
+              "value": "arion"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ 'tg_' + $json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "name": "Send to Zero Brain",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [680, 240]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.response }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "name": "Send Reply",
+      "type": "n8n-nodes-base.telegram",
+      "position": [900, 240]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://brain:8000/dump",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "content",
+              "value": "={{ $('Telegram Trigger').item.json.message.text }}"
+            },
+            {
+              "name": "category",
+              "value": "telegram_message"
+            },
+            {
+              "name": "sender",
+              "value": "={{ $('Telegram Trigger').item.json.message.from.username }}"
+            }
+          ]
+        }
+      },
+      "name": "Store in Vault",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [900, 380]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Sorry, I had a hiccup! Please try again."
+      },
+      "name": "Error Reply",
+      "type": "n8n-nodes-base.telegram",
+      "position": [900, 520]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [{"node": "Has Text?", "type": "main", "index": 0}]
+      ]
+    },
+    "Has Text?": {
+      "main": [
+        [{"node": "Send to Zero Brain", "type": "main", "index": 0}],
+        []
+      ]
+    },
+    "Send to Zero Brain": {
+      "main": [
+        [
+          {"node": "Send Reply", "type": "main", "index": 0},
+          {"node": "Store in Vault", "type": "main", "index": 0}
+        ]
+      ],
+      "error": [
+        [{"node": "Error Reply", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "settings": {
+    "errorWorkflow": "self_healer",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}

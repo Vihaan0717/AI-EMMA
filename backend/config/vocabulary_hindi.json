@@ -1,0 +1,78 @@
+{
+  "greetings": {
+    "hello": [
+      "namaste",
+      "namaskar",
+      "hey"
+    ],
+    "how_are_you": [
+      "kya haal hai",
+      "kaisa ho",
+      "kaise ho",
+      "sab theek"
+    ],
+    "good": [
+      "accha",
+      "bahut accha",
+      "theek hai",
+      "mast"
+    ],
+    "yes": [
+      "haan",
+      "ji",
+      "bilkul",
+      "zaroor"
+    ],
+    "no": [
+      "nahi",
+      "mat",
+      "band karo"
+    ]
+  },
+  "emotions": {
+    "happy": [
+      "khush",
+      "bahut khush",
+      "mast"
+    ],
+    "sad": [
+      "dukhi",
+      "bura lag raha",
+      "sad hoon",
+      "bahut bura"
+    ],
+    "angry": [
+      "gussa",
+      "bahut gussa",
+      "irritated",
+      "frustrated"
+    ],
+    "love": [
+      "pyaar",
+      "mohabbat",
+      "ishq"
+    ]
+  },
+  "slang": {
+    "bro": [
+      "yaar",
+      "bhai",
+      "dost"
+    ],
+    "awesome": [
+      "mast",
+      "zabardast",
+      "ekdum"
+    ],
+    "problem": [
+      "dikkat",
+      "pareshani",
+      "problem"
+    ],
+    "work": [
+      "kaam",
+      "job",
+      "naukri"
+    ]
+  }
+}

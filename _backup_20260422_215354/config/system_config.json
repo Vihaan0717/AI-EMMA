@@ -1,0 +1,38 @@
+{
+  "system_name": "NEXUS-X OMEGA",
+  "version": "1.0.0",
+  "ollama_url": "http://localhost:11434",
+  "primary_model": "llama3.1",
+  "fast_model": "gemma2:2b",
+  "embedding_model": "nomic-embed-text",
+  "heartbeat_interval": 10,
+  "zombie_multiplier": 3,
+  "dead_multiplier": 6,
+  "max_memory_history": 20,
+  "max_context_turns": 20,
+  "voice_enabled": true,
+  "vision_enabled": true,
+  "whatsapp_enabled": false,
+  "screen_watch_enabled": true,
+  "screen_interval": 15,
+  "db_paths": {
+    "sqlite": "data/nexus.db",
+    "chroma": "data/chromadb",
+    "qdrant": "data/qdrant",
+    "vault": "knowledge_vault"
+  },
+  "bridge_queue": "data/bridge_queue",
+  "rag_min_relevance": 0.45,
+  "curiosity_every_n_turns": 5,
+  "memory_consolidation_hour": 3,
+  "self_upgrade_hour": 4,
+  "resource_governor": {
+    "cpu_threshold": 85,
+    "ram_threshold": 90,
+    "pause_agents_on_high_load": [
+      "prediction_engine",
+      "curiosity_engine",
+      "screen_watcher"
+    ]
+  }
+}

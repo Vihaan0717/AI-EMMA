@@ -1,0 +1,21 @@
+{
+  "name": "jarvis_project",
+  "version": "1.0.0",
+  "description": "**Distributed Fleet • Tiered Memory Architecture • Zero-Latency Intelligence • Automated Social Presence**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vihaan0717/Jarvis_Nexus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vihaan0717/Jarvis_Nexus/issues"
+  },
+  "homepage": "https://github.com/Vihaan0717/Jarvis_Nexus#readme"
+}

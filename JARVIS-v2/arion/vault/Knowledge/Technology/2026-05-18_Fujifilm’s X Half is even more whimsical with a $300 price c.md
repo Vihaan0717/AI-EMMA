@@ -1,0 +1,20 @@
+---
+title: "Fujifilm’s X Half is even more whimsical with a $300 price cut"
+source: https://www.theverge.com/gadgets/928204/fujifilm-x-half-digital-camera-deal-sale
+date: 2026-05-18
+tags:
+  - news
+  - auto-learning
+  - auto-injected
+---
+
+# Fujifilm’s X Half is even more whimsical with a $300 price cut
+
+Fujifilm’s X Half digital camera wasn’t designed to replace your main camera, though you’d be forgiven for assuming it was with its ludicrous $850 price. However, the company recently reduced the MSRP to $649.99, and is now knocking an additional $100 off through June 28th. That means you can grab the X Half in its base configuration for around $549 at Amazon, B&H Photo, and Best Buy. Adorama is also discounting it to the same price and throwing in a free accessory pack, which includes a 64GB SanDisk SD card and a camera case.
+Fujifilm’s X Half is even more whimsical with a $300 price cut
+Now through June 28th, you can get the analog-simulating digital camera for $549.99.
+The X Half isn’t like most other digital cameras. It’s a feature-light shooter designed to evoke the feel of a half-frame film camera, one that can capture 18-megapixel stills you can style in numerous ways. You can add film simulations, filters, and grain. Digital diptychs are also possible, complete with the option to have the date baked into the photos. In short, it’s incredibly fun, but it lacks features you might be used to in modern cameras, including the ability to take RAW images, a hot shoe for attaching accessories, and an electronic viewfinder.
+When we published our hands-on impressions last year, former Verge supervising producer Vjeran Pavic called the X Half both whimsical and refreshing. Its vertical 1-inch sensor and fixed 32mm equivalent f/2.8 lens are capable of capturing great shots, but the pocket-friendly camera was designed with point-and-shoot simplicity in mind. Pavic enjoyed taking “scrappy, quick photos” with it, as did our own Antonio Di Bennedeto, even if he was turned off by the original price.
+
+---
+*Synthesized by AutonomousLearner*

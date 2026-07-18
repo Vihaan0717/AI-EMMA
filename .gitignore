@@ -1,0 +1,78 @@
+# --- Project Zero (NEXUS-X) Gitignore ---
+
+# Environment variables & Keys
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python caching
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# NEXUS-X User Data (IMPORTANT: Protect Privacy)
+memory/
+data/
+logs/
+*.db
+*.sqlite3
+telugu_scholar_vault.json
+psyche_profile.json
+telugu_dna.json
+reminders.json
+memory.json
+
+# Sensitive Browser Data (WhatsApp profiles)
+config/whatsapp_edge_profile/
+
+# Temporary and Log files
+*.log
+wa_debug_output.txt
+PyWhatKit_DB.txt
+debug_frame.jpg
+tmp/
+
+# Screenshots/Media/Debug
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.wav
+*.pcm
+whatsapp_debug_state.png
+whatsapp_search.png
+unread_badge.png
+debug_jarvis_eyes.png
+debug_time_eyes.png
+sysinternals.zip
+
+# Large Binaries / Databases / Sessions
+mongodb/
+mongodb.zip
+JARVIS-v2/arion/whatsapp/.wwebjs_auth/
+*.vrm
+*.pdb
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.exe
+*.msi
+
+# VS Code / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS
+.DS_Store

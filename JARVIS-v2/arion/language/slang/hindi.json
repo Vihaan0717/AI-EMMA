@@ -1,0 +1,18 @@
+{
+  "mumbai": {
+    "bole toh": {"meaning": "meaning that", "formality": 1},
+    "jhakaas": {"meaning": "awesome", "formality": 1}
+  },
+  "delhi": {
+    "bhaiya": {"meaning": "brother", "formality": 2},
+    "jugaad": {"meaning": "hack/workaround", "formality": 1}
+  },
+  "standard": {
+    "namaste": {"meaning": "hello", "formality": 3}
+  },
+  "religious_expressions": {
+    "hindu": ["ram ram", "namaste"],
+    "muslim": ["assalamualaikum"],
+    "christian": ["amen"]
+  }
+}

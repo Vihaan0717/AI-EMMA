@@ -1,0 +1,244 @@
+# PROJECT ZERO - Complete Docker Stack
+# Deploy on Oracle Cloud Always Free
+# 4 OCPU, 24GB RAM - All Free Forever
+
+version: '3.9'
+
+networks:
+  zero-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  n8n_data:
+  redis_data:
+  postgres_local_data:
+  sandbox_data:
+
+services:
+
+  # ═══════════════════════════════════════════
+  # NGINX — Reverse Proxy + SSL
+  # ═══════════════════════════════════════════
+  nginx:
+    image: nginx:alpine
+    container_name: zero_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.2
+    depends_on:
+      - brain
+      - n8n
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ═══════════════════════════════════════════
+  # NEXUS BRAIN — Main AI Service
+  # ═══════════════════════════════════════════
+  brain:
+    build:
+      context: .
+      dockerfile: Dockerfile.brain
+    container_name: zero_brain
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - HF_TOKEN=${HF_TOKEN}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - REDIS_URL=redis://redis:6379
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./brain:/app/brain
+      - ./config:/app/config:ro
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.3
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.2'
+          memory: 256M
+
+  # ═══════════════════════════════════════════
+  # n8n BRIDGE — 24/7 Automation
+  # ═══════════════════════════════════════════
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: zero_n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://${N8N_HOST}
+      - EXECUTIONS_PROCESS=main
+      - N8N_LOG_LEVEL=info
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres_local
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n_workflows:/home/node/.n8n/workflows:ro
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.4
+    depends_on:
+      postgres_local:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # ═══════════════════════════════════════════
+  # ZERO SANDBOX — Isolated Execution
+  # ═══════════════════════════════════════════
+  sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: zero_sandbox
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      - SANDBOX_SECRET=${SANDBOX_SECRET}
+      - MAX_EXECUTION_TIME=30
+      - MAX_MEMORY_MB=512
+    volumes:
+      - sandbox_data:/app/sandbox/data
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.5
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp:size=100m
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+
+  # ═══════════════════════════════════════════
+  # REDIS — Cache + Session + PubSub
+  # ═══════════════════════════════════════════
+  redis:
+    image: redis:7-alpine
+    container_name: zero_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --save 60 1
+      --loglevel warning
+    volumes:
+      - redis_data:/data
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.6
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+
+  # ═══════════════════════════════════════════
+  # LOCAL POSTGRES — n8n + App Data
+  # ═══════════════════════════════════════════
+  postgres_local:
+    image: postgres:15-alpine
+    container_name: zero_postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_local_data:/var/lib/postgresql/data
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.7
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U n8n"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+
+  # ═══════════════════════════════════════════
+  # WATCHDOG — Container Guardian
+  # ═══════════════════════════════════════════
+  watchdog:
+    image: python:3.11-alpine
+    container_name: zero_watchdog
+    restart: always
+    volumes:
+      - ./watchdog_cloud.py:/app/watchdog.py:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: python /app/watchdog.py
+    networks:
+      zero-network:
+        ipv4_address: 172.20.0.8
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - ADMIN_CHAT_ID=${TELEGRAM_OWNER_CHAT_ID}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M

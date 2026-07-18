@@ -1,0 +1,20 @@
+---
+title: "Hackers duped Meta AI support chatbot to steal celebrity Instagram accounts"
+source: https://arstechnica.com/ai/2026/06/meta-ai-support-chatbot-gave-hackers-access-to-notable-instagram-accounts/
+date: 2026-06-03
+tags:
+  - news
+  - auto-learning
+  - auto-injected
+---
+
+# Hackers duped Meta AI support chatbot to steal celebrity Instagram accounts
+
+Meta’s AI support chatbot proved unusually helpful to hackers looking to steal and resell notable Instagram accounts—the hackers simply asking the bot to change the accounts’ associated email addresses while using VPN to mask their true locations.
+Videos featuring the “shockingly easy” exploit have been circulating among Telegram groups for hackers and security researchers, according to 404 Media. The exploit allowed hackers to take over and flip valuable Instagram accounts worth hundreds of thousands of dollars on the gray market before Meta implemented an emergency patch on May 29. The Barack Obama White House account and the Chief Master Sergeant of Space Force’s account also posted pro-Iranian images and messages while they were temporarily compromised.
+Attackers simply had to use a VPN to approximately match their location to the target Instagram account’s region, begin a password reset process, and then ask Meta’s AI support chatbot to change the email address associated with the account, according to 404 Media. It’s a very straightforward prompt injection attack.
+Neowin reported having the exploit as being “active in the wild for months, going as far back as February of this year, with hackers compromising thousands of accounts.” But the exploit seems to have gained more public notice in recent days with the compromise of high-profile accounts. Prominent researchers, such as Jane Manchun Wong, have also recently reported that their accounts were hacked.
+On May 31, the pseudonymous open source intelligence researcher ZachXBT posted on X about how “the Meta AI support is garbage and has lots of access perms which allowed you to reset passwords to any user without 2FA and did not verify who you are.” At the same time, the researcher Dark Web Informer described the same exploit on X while noting it had been recently patched.
+
+---
+*Synthesized by AutonomousLearner*

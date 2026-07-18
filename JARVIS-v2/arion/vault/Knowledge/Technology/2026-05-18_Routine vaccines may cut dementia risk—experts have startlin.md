@@ -1,0 +1,21 @@
+---
+title: "Routine vaccines may cut dementia risk—experts have startling hypothesis on how"
+source: https://arstechnica.com/health/2026/05/routine-vaccines-may-cut-dementia-risk-experts-have-startling-hypothesis-on-how/
+date: 2026-05-18
+tags:
+  - news
+  - auto-learning
+  - auto-injected
+---
+
+# Routine vaccines may cut dementia risk—experts have startling hypothesis on how
+
+More and more routine vaccines are being linked to lower risks of dementia. Shots against seasonal flu, RSV, tetanus, diphtheria, and pertussis (Tdap), pneumococcal infections, hepatitis A and B, and typhoid have all been linked to lower risks. And one of the strongest connections is from vaccination against shingles, with more data supporting the link still coming in. But as the evidence mounts, scientists continue to puzzle over the pleasant surprise—how are vaccines that target specific pathogens inadvertently shielding our minds from deterioration?
+A burgeoning hypothesis offers a brow-raising possibility: The shots may be protecting our noggins by training the part of our immune system that had long been considered untrainable. If the idea holds up, it could generate a deeper understanding of fundamental aspects of our immune systems while opening new avenues to treating or preventing dementia. It could also add another dimension to the benefits of vaccines, which already save millions of lives worldwide.
+Trained immunity
+It’s well understood how vaccines work generally; they’re designed to prime our immune systems against specific pathogens. Vaccines present either defanged pathogens or distinctive fragments of them to specialized immune cells—namely, T cells and antibody-producing B cells—that can then learn to identify those microbial enemies.
+So if such a pathogen stages an attack after immunization, those immune cells will be able to recognize the invaders quickly and destroy them. This process, as intended, engages adaptive immune responses, the part of the immune system known to be trainable. It can learn to target specific threats—and remember those threats, aka immunologic memory.
+Then there’s the other part of the immune system, the innate immune responses. These precede adaptive responses, acting as first-line, non-specific defenses against germs and injury. Innate defenses include everything from physical barriers—skin, mucous, gastric acid—to immune cells that can indiscriminately gobble invaders, as well as chemical signals that can swiftly ignite generic inflammation.
+
+---
+*Synthesized by AutonomousLearner*

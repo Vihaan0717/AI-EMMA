@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "numbers": [
+    "919154716156",
+    "919391340978"
+  ],
+  "names": [
+    "Amma",
+    "Chelli",
+    "Jabili Akka",
+    "Jeevan"
+  ],
+  "settings": {
+    "reply_to_saved_contacts_only": true,
+    "reply_to_groups": false,
+    "reply_to_group_dms": false,
+    "reply_to_business": false,
+    "reply_to_broadcast": false,
+    "require_admin_approval": true,
+    "auto_block_spam": true,
+    "unknown_contact_action": "notify"
+  }
+}

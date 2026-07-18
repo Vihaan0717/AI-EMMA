@@ -1,0 +1,12 @@
+{
+  "name": "jarvis-v2",
+  "version": "1.0.0",
+  "description": "ARION Sentient Mirror V2",
+  "scripts": {
+    "start": "echo Launching ARION Core and WhatsApp Bridge... && start python arion/main.py && cd arion/whatsapp && npm start",
+    "core": "cd arion && python main.py",
+    "whatsapp": "cd arion/whatsapp && npm start",
+    "setup": "python -m pip install -r arion/requirements.txt && cd arion/whatsapp && npm install"
+  },
+  "dependencies": {}
+}

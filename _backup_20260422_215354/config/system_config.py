@@ -1,0 +1,43 @@
+import os
+from dotenv import load_dotenv
+
+# This tells Python to go find the .env file and load the secrets into memory
+load_dotenv()
+
+class JarvisConfig:
+    """Central configuration hub for Project JARVIS."""
+    
+    # 1. API Keys
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    AUTHORIZED_CHAT_ID = os.getenv("AUTHORIZED_CHAT_ID")
+    
+    # 2. News & Info
+    OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
+    NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+    RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
+    RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST", "gowatch.p.rapidapi.com")
+    
+    # 3. System Settings
+    ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+    OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+    LOCAL_MODEL_NAME = os.getenv("LOCAL_MODEL_NAME", "gemma3:1b")
+    
+    # 4. Database & Knowledge Base (Cloud Migration)
+    SUPABASE_URL = os.getenv("SUPABASE_URL")
+    SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+    QDRANT_URL = os.getenv("QDRANT_URL")
+    QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
+    QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "jarvis_knowledge")
+    RENDER_URL = os.getenv("RENDER_URL", "https://jarvis-cloud-brain.onrender.com")
+    
+    @classmethod
+    def validate_keys(cls):
+        """Checks if JARVIS has what he needs to boot up."""
+        if not cls.GEMINI_API_KEY:
+            raise ValueError("🚨 CRITICAL: Gemini API Key is missing from the .env file!")
+        print("✅ All system configuration keys loaded successfully.")
+
+# Test it out if this file is run directly
+if __name__ == "__main__":
+    JarvisConfig.validate_keys()

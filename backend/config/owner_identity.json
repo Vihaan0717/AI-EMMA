@@ -1,0 +1,21 @@
+{
+  "name": "Owner",
+  "preferred_name": "Boss",
+  "preferred_language": "english",
+  "secondary_languages": [
+    "telugu",
+    "hindi"
+  ],
+  "dialect": "tenglish",
+  "timezone": "Asia/Kolkata",
+  "relationships": {},
+  "preferences": {
+    "response_length": "medium",
+    "humor": "moderate",
+    "formality": "casual",
+    "detail_level": "balanced"
+  },
+  "interests": [],
+  "work": "",
+  "location": ""
+}

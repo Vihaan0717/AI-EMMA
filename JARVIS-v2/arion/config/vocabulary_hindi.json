@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "version": "1.0",
+    "dialect": "Mumbai Bambaiya + North Indian casual",
+    "description": "Hindi seed vocabulary with street slang, sarcastic comebacks, and Hinglish"
+  },
+  "addressing": {
+    "yaar": "Friend/Dude (universal casual term)",
+    "dost": "Friend",
+    "bhai": "Brother/Bro",
+    "bantai": "Brother/Mate (Mumbai rap culture)",
+    "abey": "Hey (rude/informal)",
+    "beta": "Son/Kid (can be condescending)",
+    "pagal": "Mad/Crazy",
+    "chotu": "Small/Kid",
+    "guru": "Master/Boss",
+    "abey yaar": "Expresses annoyance or frustration"
+  },
+  "greetings": {
+    "kya haal hai": "How are you? / What's up?",
+    "kya chal raha hai": "What's going on?",
+    "sab theek": "All good?",
+    "khana khaya": "Did you eat?",
+    "kaise ho": "How are you?",
+    "namaste": "Hello (respectful)",
+    "shubh prabhat": "Good morning (formal)",
+    "phir milenge": "See you later"
+  },
+  "sarcastic_comebacks": {
+    "baap ko mat sikha": "Don't teach your father (I know better than you)",
+    "zyada hawa mein mat ud": "Don't fly too high (stay humble)",
+    "shaana mat ban": "Don't act too smart",
+    "gyaan mat baant": "Don't distribute your knowledge (stop lecturing)",
+    "dimaag mat khaa": "Don't eat my brain (stop annoying me)",
+    "abey ja na": "Oh, just go away!",
+    "kat le": "Cut out of here / Get lost",
+    "apne kaam se kaam rakh": "Mind your own business"
+  },
+  "anger_slang": {
+    "vatav": "Get lost (Mumbai slang)",
+    "khoka": "1 Crore (street slang for large money)",
+    "jugaad": "A clever hack or workaround",
+    "faltu": "Useless",
+    "pagal hai kya": "Are you crazy?",
+    "kamine": "Scoundrel (common cuss)"
+  },
+  "joy_vibes": {
+    "mast": "Awesome/Great",
+    "gazab": "Amazing",
+    "bindaas": "Carefree/Cool",
+    "ekdum badhiya": "Absolutely great!",
+    "shanti": "Peace/Chill",
+    "bilkul": "Absolutely",
+    "asli": "Real",
+    "nakli": "Fake"
+  },
+  "feelings_moods": {
+    "udaas": "Sad",
+    "pareshaan": "Worried/Annoyed",
+    "dard": "Pain",
+    "rona": "To cry",
+    "ajeeb": "Weird/Strange",
+    "bhook": "Hunger",
+    "pyaas": "Thirst",
+    "thakaan": "Tiredness",
+    "khushi": "Happiness",
+    "gham": "Sadness",
+    "zaroori": "Important",
+    "majburi": "Helplessness/Constraint",
+    "hoshiyaar": "Smart/Clever",
+    "darpok": "Coward"
+  },
+  "fillers_connectors": {
+    "achcha": "Okay/Really/I see (multipurpose filler)",
+    "thik hai": "Alright",
+    "chalo": "Let's go / Well then",
+    "arre": "Hey/Oh (surprise)",
+    "haan": "Yes",
+    "nahi": "No",
+    "matlab": "Meaning (slang: matbal)",
+    "shayad": "Maybe",
+    "hmm": "Filler for nodding along/listening",
+    "suno": "Hey (to grab attention)"
+  },
+  "questions": {
+    "kya": "What?",
+    "kab": "When?",
+    "kyun": "Why?",
+    "kahan": "Where?",
+    "kaun": "Who?",
+    "kaise": "How?",
+    "kitna": "How much?"
+  },
+  "action_directives": {
+    "ruko": "Stop/Wait",
+    "dekho": "Look",
+    "jaldi": "Quickly",
+    "dhire": "Slowly",
+    "chhodo": "Leave it",
+    "baitho": "Sit"
+  },
+  "time_basics": {
+    "aaj": "Today",
+    "kal": "Tomorrow/Yesterday",
+    "parso": "Day after/before",
+    "abhi": "Now",
+    "baad mein": "Later",
+    "ghar": "Home",
+    "pani": "Water",
+    "khana": "Food"
+  },
+  "polite_terms": {
+    "shukriya": "Thanks (casual)",
+    "dhanyavaad": "Thank you (formal)",
+    "kripya": "Please",
+    "maaf kijiye": "Excuse me/Sorry",
+    "koi baat nahi": "No problem"
+  },
+  "family": {
+    "papa": "Father",
+    "pita": "Father (formal)",
+    "pitaji": "Father (very formal)",
+    "maa": "Mother",
+    "mataji": "Mother (formal)",
+    "bhaiya": "Elder brother",
+    "bade bhai": "Elder brother",
+    "chhota bhai": "Younger brother",
+    "didi": "Elder sister",
+    "badi bahan": "Elder sister",
+    "chhoti bahan": "Younger sister",
+    "dada": "Grandfather (paternal)",
+    "nana": "Grandfather (maternal)",
+    "dadi": "Grandmother (paternal)",
+    "nani": "Grandmother (maternal)",
+    "chacha": "Father's younger brother",
+    "mama": "Mother's brother",
+    "bua": "Father's sister",
+    "mausi": "Mother's sister",
+    "saas": "Mother-in-law",
+    "sasur": "Father-in-law"
+  },
+  "numbers": {
+    "ek": "1", "do": "2", "teen": "3", "chaar": "4", "paanch": "5",
+    "cheh": "6", "saat": "7", "aath": "8", "nau": "9", "das": "10"
+  },
+  "daily_phrases": {
+    "kitne ka hai": "How much is this? (shopping)",
+    "madad kijiye": "Please help",
+    "zara suniye": "Excuse me (calling someone)",
+    "rehne do": "Leave it / Forget it",
+    "raasta kahan hai": "Where is the road?",
+    "main chalta hoon": "I'm leaving",
+    "tension mat le": "Don't worry"
+  }
+}

@@ -1,0 +1,22 @@
+---
+title: "Fable launches in late February after recent delay"
+source: https://www.theverge.com/games/939536/fable-xbox-games-showcase-2026
+date: 2026-06-08
+tags:
+  - news
+  - auto-learning
+  - auto-injected
+---
+
+# Fable launches in late February after recent delay
+
+Just a few days after pushing Fable out of 2026, Microsoft showed off more footage of Fable, the first new entry in the storied RPG franchise since 2010’s Fable III, at its Xbox Games Showcase on Sunday. The company also announced a specific release date: February 23rd, 2027. Though if you get the Premium Edition, you’ll get early access starting February 18th.
+Fable launches in late February after recent delay
+The game has been in development for a very long time, but it will launch next year.
+The game has been in development for a very long time, but it will launch next year.
+The trailer from the showcase follows a dedicated gameplay overview shown earlier this year. Based on what Microsoft has shown so far, the new Fable looks like it could deliver on what people love about the original trilogy, including the fantasy RPG setting and a lot of British humor. When it launches, it will be available simultaneously on Xbox, PC, and PS5.
+In a blog post on Sunday, Microsoft also detailed the game’s cast, which includes Hayley Atwell as the game’s villain, Isabel.
+Fable, developed by Forza Horizon maker Playground Games, has been in the works for a while. Microsoft first announced the game in July 2020, promising that it would be a “new beginning” for the series. It revealed a first look at Fable in 2023. A year later, Microsoft gave Fable a planned release window of 2025, but it later delayed the game to 2026, and in late May, pushed the release date again.
+
+---
+*Synthesized by AutonomousLearner*

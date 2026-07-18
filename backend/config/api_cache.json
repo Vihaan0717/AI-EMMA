@@ -1,0 +1,97 @@
+{
+    "weather": {
+        "timestamp": 1775904453.9320786,
+        "data": {
+            "location": "Hyderabad",
+            "temperature": 36.23,
+            "description": "scattered clouds",
+            "humidity": 30,
+            "wind_speed": 4.12,
+            "feels_like": 36.52
+        }
+    },
+    "news": {
+        "timestamp": 1775904455.0546782,
+        "data": [
+            {
+                "title": "Flashes on the Dark Side of the Moon: A New Fishing Net for Interstellar Objects - Avi Loeb \u2013 Medium",
+                "source": "Medium",
+                "time": "Recently"
+            },
+            {
+                "title": "These Republican-on-Republican disputes are keeping Congress frozen - Politico",
+                "source": "Politico",
+                "time": "Recently"
+            },
+            {
+                "title": "US Postal Service to suspend employer pay to workers\u2019 pensions, citing cash crunch - NewsNation",
+                "source": "Newsnationnow.com",
+                "time": "Recently"
+            },
+            {
+                "title": "Live updates from the 2026 Men's Frozen Four in Las Vegas - NCAA.com",
+                "source": "NCAA.com",
+                "time": "Recently"
+            },
+            {
+                "title": "Trump Lashes Out at MAGA Critics Amid Iran Split - WSJ",
+                "source": "The Wall Street Journal",
+                "time": "Recently"
+            },
+            {
+                "title": "WhatsApp is bringing Status updates to the top of the Chats tab - 9to5Mac",
+                "source": "9to5Mac",
+                "time": "Recently"
+            },
+            {
+                "title": "Stock futures little changed as traders monitor fragile ceasefire between U.S. and Iran: Live updates - CNBC",
+                "source": "CNBC",
+                "time": "Recently"
+            },
+            {
+                "title": "Live Updates: Trump cautions Iran against charging tolls through Strait of Hormuz as fragile ceasefire holds - CBS News",
+                "source": "CBS News",
+                "time": "Recently"
+            },
+            {
+                "title": "How to watch the Hungarian election like a pro - politico.eu",
+                "source": "POLITICO.eu",
+                "time": "Recently"
+            },
+            {
+                "title": "Scott Bessent called in US bank CEOs to discuss Anthropic model\u2019s cyber risks - Financial Times",
+                "source": "Financial Times",
+                "time": "Recently"
+            },
+            {
+                "title": "'Malcolm in the Middle' Stars Declare \"Good Sex\" Keeps Hal & Lois Together - Deadline",
+                "source": "Deadline",
+                "time": "Recently"
+            },
+            {
+                "title": "New Apple TV movie starring Keanu Reeves now available to stream - 9to5Mac",
+                "source": "9to5Mac",
+                "time": "Recently"
+            },
+            {
+                "title": "The unprecedented human experiment of Artemis II is only just beginning - CNN",
+                "source": "CNN",
+                "time": "Recently"
+            },
+            {
+                "title": "Good, Bad and Ugly Masters Round 1: A Disastrous Day for LIV Golf - Sports Illustrated",
+                "source": "Sports Illustrated",
+                "time": "Recently"
+            },
+            {
+                "title": "Sunny but scary: Masters field bracing for exacting conditions at Augusta National - PGA Tour",
+                "source": "pgatour.com",
+                "time": "Recently"
+            }
+        ]
+    },
+    "movies": {
+        "timestamp": 1775904455.5557735,
+        "data": []
+    }
+}

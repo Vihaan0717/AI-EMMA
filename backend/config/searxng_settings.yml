@@ -1,0 +1,33 @@
+# SearXNG settings for JARVIS Web Brain
+use_default_settings: true
+
+general:
+  debug: false
+  instance_name: "JARVIS-SearXNG"
+
+search:
+  safe_search: 0
+  autocomplete: "google"
+  formats:
+    - html
+    - json
+
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "jarvis_secret_key_change_me"
+  limiter: false
+  image_proxy: true
+
+enabled_engines:
+  - google
+  - bing
+  - duckduckgo
+  - wikipedia
+  - wikidata
+  - arxiv
+  - github
+  - stackoverflow
+  - semantic scholar
+  - crossref
+  - pubmed

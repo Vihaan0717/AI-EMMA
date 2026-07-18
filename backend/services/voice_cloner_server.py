@@ -1,0 +1,49 @@
+import os
+os.environ["COQUI_TOS_AGREED"] = "1"
+import torch
+from TTS.api import TTS
+from flask import Flask, request, send_file
+import tempfile
+
+app = Flask(__name__)
+
+# JARVIS Anime Voice Config
+VOICE_SAMPLE = "c:/Users/anger/Desktop/JARVIS_Project/anime-voice-erin-touch-2.wav"
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+print(f"Loading XTTSv2 model on {device}...")
+# Initializing TTS with XTTSv2
+tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+print("Model loaded successfully!")
+
+@app.route("/health", methods=["GET"])
+def health():
+    return {"status": "ok", "device": device}, 200
+
+@app.route("/synthesize", methods=["POST"])
+def synthesize():
+    data = request.json
+    text = data.get("text", "")
+    language = data.get("language", "en")
+    speaker_wav = data.get("speaker_wav", VOICE_SAMPLE)
+    
+    if not text:
+        return {"error": "No text provided"}, 400
+
+    if not os.path.exists(speaker_wav):
+        return {"error": f"Speaker reference wave file not found: {speaker_wav}"}, 400
+
+    output_path = os.path.join(tempfile.gettempdir(), "jarvis_voice_output.wav")
+    
+    tts.tts_to_file(
+        text=text,
+        file_path=output_path,
+        speaker_wav=speaker_wav,
+        language=language
+    )
+    
+    return send_file(output_path, mimetype="audio/wav")
+
+if __name__ == "__main__":
+    # Explicitly listen on all interfaces so the main engine can connect
+    app.run(host="0.0.0.0", port=8768)

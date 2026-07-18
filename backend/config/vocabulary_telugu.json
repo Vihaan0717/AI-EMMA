@@ -1,0 +1,154 @@
+{
+  "greetings": {
+    "hello": [
+      "namaskaram",
+      "namasthe",
+      "hey",
+      "hi"
+    ],
+    "how_are_you": [
+      "ela unnaru",
+      "em chestunnaru",
+      "bagunnara",
+      "ela undi",
+      "em chestunnav"
+    ],
+    "good": [
+      "baagundi",
+      "chala baagundi",
+      "super",
+      "mast",
+      "chala mast"
+    ],
+    "yes": [
+      "avunu",
+      "aa",
+      "sare",
+      "okay",
+      "aunu"
+    ],
+    "no": [
+      "kadu",
+      "ledu",
+      "vendam",
+      "vaddu"
+    ]
+  },
+  "emotions": {
+    "happy": [
+      "santhoshanga",
+      "chala happy",
+      "chala bagundi",
+      "mast ga undi"
+    ],
+    "sad": [
+      "dukkhanga",
+      "badhaga undi",
+      "chala sad ga",
+      "badu ga undi"
+    ],
+    "angry": [
+      "kopa ga undi",
+      "chala gussa",
+      "pedda kopa",
+      "chala kopa"
+    ],
+    "love": [
+      "prema",
+      "chala istam",
+      "nachindi",
+      "love chestha"
+    ],
+    "tired": [
+      "chala tired",
+      "exhausted ga",
+      "rest kavali",
+      "sleep vastundi"
+    ]
+  },
+  "common": {
+    "what": [
+      "enti",
+      "em"
+    ],
+    "how": [
+      "ela",
+      "yela"
+    ],
+    "why": [
+      "enduku",
+      "ela antunnaru"
+    ],
+    "when": [
+      "eppudu"
+    ],
+    "where": [
+      "ekkada"
+    ],
+    "who": [
+      "evaru"
+    ],
+    "help": [
+      "sahayam cheyyi",
+      "help cheyyi"
+    ],
+    "thanks": [
+      "dhanyavaadalu",
+      "thanks bro",
+      "thank you cheppukunta"
+    ],
+    "okay": [
+      "sare",
+      "okay da",
+      "aunu"
+    ],
+    "come": [
+      "ra",
+      "raava"
+    ],
+    "go": [
+      "po",
+      "vellu"
+    ],
+    "see": [
+      "chudu",
+      "chustanu"
+    ],
+    "tell": [
+      "cheppu",
+      "cheppandi"
+    ],
+    "know": [
+      "telusa",
+      "telusu"
+    ]
+  },
+  "slang": {
+    "bro": [
+      "bro",
+      "da",
+      "ra",
+      "machan"
+    ],
+    "awesome": [
+      "chala mast",
+      "super",
+      "pakkaa"
+    ],
+    "problem": [
+      "issue",
+      "samsya",
+      "problem"
+    ],
+    "work": [
+      "pani",
+      "work",
+      "job"
+    ],
+    "money": [
+      "money",
+      "dabbu",
+      "cash"
+    ]
+  }
+}

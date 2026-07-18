@@ -1,0 +1,219 @@
+{
+  "main": {
+    "id": "daf74d5adcc860d1",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fdfef4999550135",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e0570b6789f34d62",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4224af0889ca5500",
+    "type": "split",
+    "children": [
+      {
+        "id": "94da9452d3f5ec7c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "23190284fe9b38ff",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9f3c99bd4250b8b9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "45ba0aade5e64ccd",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3869cdd0eab18603",
+    "type": "split",
+    "children": [
+      {
+        "id": "175ce10d4ab4c1c5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7b8bda345a54811f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "1a44c2b0a1fb1af5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "07bbf806d64fccd5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "939cbeb36e50fbd4",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "bb2f8a984b909e47",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e0570b6789f34d62",
+  "lastOpenFiles": [
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Happy_About_Casual_Check_In.md",
+    "Brain/Episodic/Kannaya_Kannaya_Expressed_About_General.md",
+    "Brain/Episodic/Kannaya_Kannaya_Expressed_Neutral_About_Question.md",
+    "Brain/ShortTerm/Kannaya_Talking_About_Question.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Playful_About_Casual_Check_In.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Frustrated_About_Work.md",
+    "Brain/ShortTerm/Owner_Talking_About_Work.md",
+    "Brain/ShortTerm/JEEVAN_KUMAR_JIYYANI_Talking_About_Casual_Check_In.md",
+    "Brain/ShortTerm/Owner_Talking_About_Emotions.md",
+    "Brain/Episodic/JEEVAN_KUMAR_JIYYANI_Jeevan_Kumar_Jiyyani_Expressed_About_General.md",
+    "Brain/Episodic/JEEVAN_KUMAR_JIYYANI_Jeevan_Kumar_Jiyyani_Expressed_Neutral_About_Question.md",
+    "Brain/ShortTerm/JEEVAN_KUMAR_JIYYANI_Talking_About_Question.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Frustrated_About_Casual_Check_In.md",
+    "Brain/ShortTerm/Owner_Talking_About_Family.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Frustrated_About_Venting.md",
+    "Brain/ShortTerm/Owner_Talking_About_Venting.md",
+    "Brain/ShortTerm/JEEVAN_KUMAR_JIYYANI_Talking_About_General.md",
+    "People/Contacts/JEEVAN_KUMAR_JIYYANI/Profile.md",
+    "People/Contacts/JEEVAN_KUMAR_JIYYANI",
+    "Brain/Working/Talking_With_JEEVAN_KUMAR_JIYYANI_Now.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Neutral_About_Question.md",
+    "Brain/ShortTerm/Owner_Talking_About_Question.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_About_General.md",
+    "Brain/Episodic/Owner_Owner__Voice_Expressed_Neutral_About_Casual_Check_In.md",
+    "Brain/ShortTerm/sandy_Talking_About_Work.md",
+    "Brain/ShortTerm/112627665621235_Talking_About_General.md",
+    "Brain/ShortTerm/112627665621235_Talking_About_Emotions.md",
+    "People/Contacts/112627665621235",
+    "People/Contacts/sandy",
+    "People/Contacts/Kannaya",
+    "People/Contacts/test_user",
+    "People/Contacts/Owner_(Voice)",
+    "People/Contacts/918886629738",
+    "Brain/ShortTerm",
+    "Brain/Working",
+    "Brain/Semantic",
+    "Untitled.canvas"
+  ]
+}

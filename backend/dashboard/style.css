@@ -1,0 +1,482 @@
+:root {
+    --bg-color: #030308;
+    --accent-blue: #00d2ff;
+    --accent-gold: #ffcc33;
+    --accent-green: #00ff88;
+    --accent-purple: #bd00ff;
+    --accent-red: #ff3366;
+    
+    --glass-bg: rgba(10, 10, 20, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-glow: rgba(0, 210, 255, 0.03);
+    
+    --text-primary: #f0f2f5;
+    --text-secondary: #9aa0a6;
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Fullscreen VRM Avatar Background */
+#vrm-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    display: block;
+}
+
+/* Corner Widget 3D Brain Graph */
+#3d-graph {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+    height: 300px;
+    z-index: 20;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(10, 10, 20, 0.65);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 1px var(--glass-border);
+    pointer-events: auto; /* Allow interaction with the mini graph */
+    transition: all 0.3s ease;
+}
+
+#3d-graph:hover {
+    transform: scale(1.05);
+    border-color: rgba(0, 210, 255, 0.3);
+}
+
+/* UI Overlay Container */
+.app-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none; /* Let clicks pass to 3D graph */
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+/* Enable pointer events for actual interface elements */
+.glass-header, .glass-panel, .toast {
+    pointer-events: auto;
+}
+
+/* Glassmorphic Panels */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 1px var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+    border-color: rgba(0, 210, 255, 0.2);
+}
+
+/* Floating Glass Header */
+.glass-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 20, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1rem 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.brand h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.brand h1 span {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 300;
+    display: block;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.pulsing-brain {
+    color: var(--accent-blue);
+    font-size: 1.8rem;
+    animation: brainGlow 3s infinite ease-in-out;
+}
+
+/* Search Bar */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    width: 380px;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+    width: 420px;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.search-box i {
+    color: var(--accent-blue);
+}
+
+/* Main Layout: Split sidebar left, metrics right */
+.main-content-row {
+    display: flex;
+    flex: 1;
+    gap: 1.5rem;
+    height: calc(100vh - 120px);
+    overflow: hidden;
+}
+
+/* Left Control Panel (Chat) */
+.control-panel {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.8rem;
+}
+
+.panel-header h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--accent-green);
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.status-badge i {
+    font-size: 0.6rem;
+    margin-right: 4px;
+}
+
+/* Chat Display overlay */
+.chat-display {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding-right: 0.5rem;
+}
+
+.chat-display::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chat-display::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 4px;
+}
+
+.message {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.message.system {
+    align-self: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.message.agent {
+    align-self: flex-start;
+    background: rgba(0, 210, 255, 0.08);
+    border-left: 3px solid var(--accent-blue);
+    color: var(--text-primary);
+}
+
+.message.user {
+    align-self: flex-end;
+    background: rgba(255, 204, 51, 0.08);
+    border-right: 3px solid var(--accent-gold);
+    color: var(--text-primary);
+}
+
+/* Input Spine area */
+.input-area {
+    display: flex;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.4rem 0.8rem;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+}
+
+.input-area input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: inherit;
+    padding: 0.6rem;
+    font-size: 0.9rem;
+}
+
+.input-area button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--accent-blue);
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.input-area button:hover {
+    transform: scale(1.15);
+}
+
+/* Right Sidebar overlay */
+.sidebar {
+    width: 320px;
+    margin-left: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menu-section {
+    margin-bottom: 0.5rem;
+}
+
+.menu-section h3 {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.agent-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.agent-tag {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.agent-tag.active {
+    border-color: var(--accent-blue);
+    background: rgba(0, 210, 255, 0.03);
+}
+
+.agent-tag span {
+    font-size: 0.65rem;
+    color: var(--accent-green);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Legend items */
+.legend-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.color-nexus { background: #ff3366; box-shadow: 0 0 8px #ff3366; }
+.color-agents { background: #00d2ff; box-shadow: 0 0 8px #00d2ff; }
+.color-health { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+.color-meals { background: #ffaa00; box-shadow: 0 0 8px #ffaa00; }
+.color-symptoms { background: #ff3333; box-shadow: 0 0 8px #ff3333; }
+.color-concepts { background: #bd00ff; box-shadow: 0 0 8px #bd00ff; }
+.color-knowledge { background: #ffffff; box-shadow: 0 0 8px #ffffff; }
+
+/* Info Panel (Hover details) */
+.info-panel {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    max-width: calc(100% - 3rem);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.info-panel.hidden {
+    bottom: -200px;
+    opacity: 0;
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+}
+
+.info-header h3 {
+    font-size: 1rem;
+    color: var(--accent-blue);
+}
+
+#node-group-badge {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+#close-info {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.info-content {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    white-space: pre-line;
+}
+
+/* Layout helpers */
+.panels-container {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100% - 75px);
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 0.8rem 1.6rem;
+    background: var(--accent-blue);
+    color: black;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transform: translateY(200%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+}
+
+.toast.show {
+    transform: translateY(0);
+}
+
+/* Brain Glow animation */
+@keyframes brainGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(0, 210, 255, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(0, 210, 255, 0.9);
+        transform: scale(1.05);
+    }
+}

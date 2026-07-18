@@ -1,0 +1,21 @@
+{
+  "ollama_url": "http://localhost:11434",
+  "model_name": "llama3.1",
+  "fast_model": "gemma3:1b",
+  "config_dir": "config",
+  "heartbeat_interval_seconds": 10,
+  "zombie_multiplier": 3,
+  "dead_multiplier": 6,
+  "max_memory_history": 20,
+  "vault_path": "knowledge_vault",
+  "db_paths": {
+    "sqlite":        "data/memory.db",
+    "chroma":        "data/chromadb",
+    "obsidian_vault":"data/obsidian_vault",
+    "pragmatics":    "data/pragmatics.db",
+    "causal_memory": "data/causal_memory.db"
+  },
+  "bridge_queue":   "data/bridge_queue",
+  "telegram_token": "8662332284:AAFjrx-KSS4aAgrLemDO1kFoMnSw8EC5MAo",
+  "telegram_owner_chat_id": "5500095565"
+}

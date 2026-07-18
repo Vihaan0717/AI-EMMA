@@ -1,0 +1,26 @@
+---
+title: "What it feels like to work with Mythos"
+source: https://www.oneusefulthing.org/p/what-it-feels-like-to-work-with-mythos
+date: 2026-06-09
+tags:
+  - news
+  - auto-learning
+  - auto-injected
+---
+
+# What it feels like to work with Mythos
+
+What it feels like to work with Mythos
+Claude Fable represents another big jump in AI
+I had early access to the first Mythos-class AI model being released to the public, Claude 5 Fable. Much of the discussion of Mythos has centered on its impact on software security, but I tested it on everything except that (the guardrails around Fable essentially prevent it from being used for cybersecurity at all). My conclusion is that it represents a very real leap over every model I have used before, and, maybe more important, suggests our relationship with AI is changing in drastic ways.
+First, how good is Fable? In experiment after experiment I conducted, it outperformed basically every other public model I have used by a considerable margin. It was capable across many problems and produced some startling results — it would work up to a dozen hours executing on multi-page specifications. I’ll walk you through a couple of more complex, and serious, use cases shortly, but you could see the general improvement across the board on every task. The problem about communicating this in a post is that many of the most impressive results are going to be interesting to only small portions of my readers. For example, it made the most sophisticated academic social science paper I have yet seen from an AI from a single prompt and one piece of feedback. It also created a 10-page epic rhyming poem about a haircut where every word starts with the letter s.
+So, as a more accessible and entertaining example, I also had it create a bunch of games you can try. All of these are one initial prompt in Claude Code where Fable had to take my vague prompts and generate something workable, followed by a couple of additional prompts with minor encouragement (“make it better”) or feedback. What makes these especially impressive is that Claude cannot generate images, so every piece of art or 3D object was made with math alone, not using any external assets. You can try any of them: a game about flipping coins (prompt: “Balatro, but for the game of coin flips”) that is quite fun; a snake game where the snake is self-aware and crazy things happen; the work of a famous German Romantic poet translated into an art game (“the Duino elegies as a game. get the mood right”); or a game about descending into the depths to see what is there.
+So the output is impressive. But, especially as I turned to more serious projects, I often felt using the tool was somewhere between delightful and unnerving. Delightful because I just asked for something at it happened. And also unnerving because I just asked for something and it happened.
+Maps and Methods
+To see why, it helps to understand the way in which Fable gets work done, and for that I want to turn to an example I have tested on many previous AI models: building an isochrone map. This is a map that shows the distance you can travel in a given length of time, and the first one was created in 1881 showing travel times from London.
+No previous model did an even halfway useful job with trying to create a map like this because it involves researching thousands of potential trip distances and a lot of small judgement calls and decisions. I decided to try it on Fable using Claude Code with this prompt: i want you to build a fully researched and beautiful isochronic map that lets me pick various cities and see real isochronic lines based on real data. I want the design to be unique. You should take into account airports (and travel time to and from airports) trains, walking, driving. The data does not need to be live but should be real based on your research and data. You can start with a few cities but more general is better, this should be an entirely new project. It then suggested that it do this in the style of the original map. I agreed, and it got to work.
+It is worth a second looking at the transcript of the multiple hour building session the AI went through on its own, because you can see some unusual things. First, the AI launched multiple other AIs (I believe mostly the cheaper Claude Sonnet) to help it conduct research on travel times, ultimately retrieving over 2,200 specific flights, the rail schedules for trains from the TGV to the Shinkansen, and road speeds per country from multiple academic papers. And while those agents were running, it started coding. Then it launched yet more agents and tests to verify its code, all the while taking notes about its progress.
+The result was a fully functioning map of impressive sophistication that looked a lot like the 1881 original, but that doesn’t mean it was perfect. I noticed that a lot of remote locations (like Greenland) just contained estimates of travel time, not exact numbers, so I told Fable to fix it, including the instructions: actually get travel times to remote airports and locations. This time the AI launched a workflow, adversarial groups of agents that did research and tested each others results. It figured out how often ships sail to Pitcairn Island
+
+---
+*Synthesized by AutonomousLearner*

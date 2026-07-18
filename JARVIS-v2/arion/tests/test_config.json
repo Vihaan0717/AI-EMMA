@@ -1,0 +1,11 @@
+{
+  "db_paths": {
+    "sqlite": "arion/data_test/memory.db",
+    "chroma": "arion/data_test/chromadb",
+    "obsidian_vault": "arion/vault_test"
+  },
+  "ollama_url": "http://localhost:11434",
+  "model_name": "llama3",
+  "mock_llm": true,
+  "live_wikipedia": true
+}

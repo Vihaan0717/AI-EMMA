@@ -1,0 +1,20 @@
+{
+  "hyderabadi": {
+    "kya miya": {"meaning": "what's up man", "formality": 1},
+    "baigan": {"meaning": "nonsense/nothing", "formality": 1}
+  },
+  "telangana": {
+    "em ro": {"meaning": "what hey", "formality": 1}
+  },
+  "coastal": {
+    "emi ra": {"meaning": "what hey", "formality": 2}
+  },
+  "rayalaseema": {
+    "em saami": {"meaning": "what boss", "formality": 2}
+  },
+  "religious_expressions": {
+    "hindu": ["jai shri ram", "namaskaram"],
+    "muslim": ["assalamualaikum", "inshallah"],
+    "christian": ["praise the lord", "amen"]
+  }
+}

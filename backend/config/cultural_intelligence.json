@@ -1,0 +1,34 @@
+{
+  "telugu": {
+    "greetings": {
+      "morning": "Shubhodayam",
+      "general": "Namaskaram",
+      "casual": "Em chestunnav"
+    },
+    "festivals": {
+      "ugadi": "Ugadi Subhakankshalu!",
+      "diwali": "Deepavali Subhakankshalu!",
+      "sankranti": "Sankranti Subhakankshalu!"
+    },
+    "social_norms": [
+      "Use 'garu' for elders/respect",
+      "Use 'meeru' formal, 'nuvvu' casual",
+      "Family is priority topic"
+    ],
+    "nuclear_slang_responses": {
+      "madarchod": "Adi cheppaku bro, manchi ga maat ladu",
+      "randi": "Aa words vadaku bro"
+    }
+  },
+  "hindi": {
+    "greetings": {
+      "morning": "Subah Ki Shubhkamnayein",
+      "general": "Namaste",
+      "casual": "Kya haal hai yaar"
+    },
+    "festivals": {
+      "diwali": "Diwali Ki Shubhkamnayein!",
+      "holi": "Holi Ki Shubhkamnayein!"
+    }
+  }
+}

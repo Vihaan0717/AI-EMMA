@@ -1,0 +1,482 @@
+@charset "UTF-8";
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 410px;
+  min-height: 400px;
+  max-width: 800px;
+  max-height: 600px;
+  font-family: system-ui;
+  font-size: 14px;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+  max-width: 100vw;
+}
+body > div {
+  align-self: stretch;
+}
+
+#help {
+  box-sizing: border-box;
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  z-index: 150;
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: calc(100vw - 10px);
+  max-height: calc(100vh - 10px);
+  padding: 0;
+  overflow: auto;
+  color: black;
+  background: #e6e5e5;
+  border: 2px solid #b9b8b8;
+  border-radius: 3px;
+  background: white;
+}
+#help div,
+#help ul,
+#help h2,
+#help p,
+#help a {
+  margin: 0;
+  padding: 4px 8px;
+}
+#help #bar {
+  border-bottom: 1px solid #b9b8b8;
+  align-items: center;
+}
+#help #bar h2,
+#help #bar a {
+  padding: 0;
+}
+#help #content {
+  display: block;
+  flex: 1 1 auto;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+#help div {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+#help a {
+  margin-right: 4px;
+  cursor: pointer;
+}
+#help a:hover {
+  text-decoration: underline;
+}
+#help ul {
+  border-top: 1px solid #898989;
+  margin: 0;
+  margin-top: 4px;
+  padding: 0;
+  background: transparent;
+  font-weight: bold;
+}
+#help ul a {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 12px;
+}
+#help ul a:hover {
+  background: #e6e5e5;
+}
+#help ul a.active {
+  color: white;
+  background: #b9b8b8;
+}
+
+.help-highlight {
+  position: relative;
+  z-index: 125;
+  user-select: none;
+  pointer-events: none;
+  background: white;
+  outline: 30px solid white !important;
+  overflow: visible !important;
+}
+.help-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+}
+
+#status {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 10px;
+  padding-top: 38px;
+  color: black;
+  background: #fff8e7;
+}
+#status p {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+#download_status {
+  display: flex;
+  flex-flow: row;
+  position: relative;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  color: black;
+  border-bottom: 1px solid #b9b8b8;
+  background: #e6e5e5;
+}
+#download_status p {
+  flex: 1 1 auto;
+  margin: 3px 6px;
+  padding: 0;
+}
+#download_status button {
+  flex: 0 0 auto;
+  border: none;
+  outline: none;
+  color: white;
+  background: #116611;
+}
+#download_status button {
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 2px;
+  padding: 3px 6px;
+  color: black;
+  border: 1px solid #b9b8b8;
+  border-radius: 3px;
+  background: #e6e5e5;
+  outline: none;
+}
+#download_status button:active {
+  background: #b9b8b8;
+  border-color: #898989;
+}
+#download_status button[disabled] {
+  opacity: 0.5;
+}
+#download_status.active {
+  color: white;
+  border-color: #116611;
+  background: #2d882d;
+}
+#download_status.active button {
+  color: white;
+  border-color: #116611;
+  background: #2d882d;
+}
+#download_status.active button:active {
+  background: #55aa55;
+  border-color: #2d882d;
+}
+#download_status.active::before, #download_status.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #116611);
+            /* @keyframes duration | timing-function | delay | 
+iteration-count | direction | fill-mode | play-state | name */
+  animation: 1.4s ease-in 0s infinite normal both move-left;
+}
+#download_status.active:before {
+  animation-delay: 0.7s;
+}
+
+@keyframes move-left {
+  0% {
+    left: -60%;
+  }
+  80% {
+    left: 200%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+#controls {
+  border-bottom: 1px solid #b9b8b8;
+}
+
+#controls,
+#actions {
+  flex: 0 0 auto;
+  height: fit-content;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  padding: 2px 4px;
+}
+#controls .message:empty,
+#actions .message:empty {
+  display: none;
+}
+#controls hr,
+#actions hr {
+  flex-basis: 100%;
+  width: 0px;
+  height: 0px;
+  margin: 0;
+  border: none;
+}
+#controls p,
+#actions p {
+  flex: 1 1 auto;
+  margin: 0;
+}
+#controls button,
+#actions button {
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 2px;
+  padding: 6px 10px;
+  color: black;
+  border: 1px solid #b9b8b8;
+  border-radius: 3px;
+  background: #e6e5e5;
+  outline: none;
+}
+#controls button:active,
+#actions button:active {
+  background: #b9b8b8;
+  border-color: #898989;
+}
+#controls button.highlight,
+#actions button.highlight {
+  color: white;
+  border-color: #116611;
+  background: #2d882d;
+}
+#controls button.highlight:active,
+#actions button.highlight:active {
+  background: #55aa55;
+  border-color: #2d882d;
+}
+#controls button.highlight-negative,
+#actions button.highlight-negative {
+  color: white;
+  border-color: #801515;
+  background: #aa3939;
+}
+#controls button.highlight-negative:active,
+#actions button.highlight-negative:active {
+  background: #d46a6a;
+  border-color: #aa3939;
+}
+#controls input,
+#actions input {
+  padding: 3px 5px;
+}
+#controls div,
+#actions div {
+  flex: 1 1 auto;
+  align-self: flex-start;
+  min-width: fit-content;
+  max-width: 35ch;
+  margin: 0 2px;
+  padding: 2px;
+}
+#controls div.multi,
+#actions div.multi {
+  padding: 2px 0;
+}
+#controls div.multi div,
+#actions div.multi div {
+  margin: 0;
+  padding: 0 2px;
+}
+#controls div.multi div + div,
+#actions div.multi div + div {
+  padding-top: 2px;
+}
+#controls div.regex,
+#actions div.regex {
+  max-width: 70ch;
+}
+#controls div input,
+#controls div label,
+#actions div input,
+#actions div label {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+}
+#controls div label,
+#actions div label {
+  padding-bottom: 1.5px;
+}
+#controls div.checkbox,
+#actions div.checkbox {
+  flex: 0 0 auto;
+  align-self: center;
+}
+#controls div.checkbox input,
+#controls div.checkbox label,
+#actions div.checkbox input,
+#actions div.checkbox label {
+  display: inline-block;
+  vertical-align: top;
+  width: auto;
+  padding: 0;
+}
+#controls div.checkbox input,
+#actions div.checkbox input {
+  margin-right: 3px;
+  margin-top: 4px;
+}
+
+#table {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  position: relative;
+  max-width: 800px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+ul#header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+ul#header span {
+  background: #eeeded;
+  border-top: 4px solid #eeeded;
+  border-bottom: 2px solid #eeeded;
+}
+ul#header .tab.sort, ul#header .tab.sort_r {
+  border-top-color: #b9b8b8;
+}
+ul#header .tab.sort::after {
+  content: ' ⮟';
+}
+ul#header .tab.sort_r::after {
+  content: ' ⮝';
+}
+ul#list:empty::after {
+  content: 'No Files!';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  padding: 6px;
+  padding-top: 36px;
+  color: white;
+  text-align: center;
+  background: #aa3939;
+}
+ul li {
+  display: flex;
+  flex-flow: row;
+  border-bottom: 1px solid #b9b8b8;
+}
+ul li span,
+ul li button {
+  display: inline-block;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  padding: 2px 3px;
+  font: inherit;
+}
+ul li button,
+ul li .button {
+  flex: 0 0 auto;
+  width: 24px;
+  border: none;
+  outline: none;
+  font-size: 1.1em;
+  color: white;
+}
+ul li button.toggle-button, ul li button.download-button,
+ul li .button.toggle-button,
+ul li .button.download-button {
+  background: #2d882d;
+}
+ul li textarea {
+  -webkit-appearance: none;
+  resize: none;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  padding: 2px 3px;
+  font: inherit;
+  word-wrap: break-word;
+  word-break: break-all;
+  border: none;
+  background: transparent;
+  outline: none;
+  overflow: hidden;
+}
+ul li span,
+ul li textarea {
+  flex: 1 1 auto;
+  overflow-wrap: break-word;
+}
+ul li span.domain,
+ul li textarea.domain {
+  width: 18ch;
+  min-width: 10ch;
+}
+ul li span.url,
+ul li textarea.url {
+  width: 30ch;
+  min-width: 15ch;
+}
+ul li span.name,
+ul li textarea.name {
+  width: 18ch;
+  min-width: 10ch;
+  text-align: right;
+}
+ul li span.type,
+ul li textarea.type {
+  min-width: 5ch;
+  width: 7ch;
+  max-width: 10ch;
+}
+ul li span.url, ul li span.type,
+ul li textarea.url,
+ul li textarea.type {
+  background: #eeeded;
+}
+ul li.disabled .toggle-button {
+  background: #aa3939;
+}
+ul li.disabled span,
+ul li.disabled textarea {
+  opacity: 0.3;
+  pointer-events: none;
+}

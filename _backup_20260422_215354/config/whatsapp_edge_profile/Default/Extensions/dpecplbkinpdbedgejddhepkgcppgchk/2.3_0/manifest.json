@@ -1,0 +1,34 @@
+{
+   "author": "Brett Doyle",
+   "background": {
+      "persistent": false,
+      "scripts": [ "background.js" ]
+   },
+   "browser_action": {
+      "default_icon": {
+         "19": "icon19.png",
+         "38": "icon38.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "Downloader"
+   },
+   "description": "Easily and quickly download multiple files from websites.",
+   "icons": {
+      "128": "icon128.png",
+      "16": "icon16.png",
+      "19": "icon19.png",
+      "38": "icon38.png",
+      "48": "icon48.png",
+      "80": "icon80.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs10RBrAcpVYdq7N6GvUnygfhRi+pNt/IiIqvk81IZFUIq1a0A8A1da/Pt/MTQE8kv5pPqiWeY5H0p2iPEmSoteZwdAoum5mNjkSdEyPCwrvcB15Q3fUjB5HChWJgCgOJxNDxTccLtG+fiNRVwPF1lwg27IZZlqvK9D66zj+9aY+ZHaR2WPCZUJx5CyB5UnGsmJUcSZB0nJYUB+Mfg5EfbXHuLMfCVeCLIuSEZib6bVcX3WblzL1gbO4BwU+NAeF5exkIbG6aL4NZyrMV9H1fy3nMIFgL+Cj0nz3jURA0zOOx+3aZtob9WW52ky4TfXVlYvYuOwnakXEEZgCXaXd3uwIDAQAB",
+   "manifest_version": 2,
+   "name": "Multi-File Downloader",
+   "options_ui": {
+      "chrome_style": false,
+      "page": "options.html"
+   },
+   "permissions": [ "downloads", "activeTab", "storage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "2.3"
+}
