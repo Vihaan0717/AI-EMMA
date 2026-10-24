@@ -1,6 +1,6 @@
 import { motion, useSpring, useTransform } from "framer-motion";
-import { useEffect } from "react";
-import { Activity, Cpu, HardDrive, Battery, BatteryCharging, Zap, Shield, Database } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Activity, Cpu, HardDrive, Battery, BatteryCharging, Zap, Shield, Database, ChevronDown, ChevronUp } from "lucide-react";
 
 interface OSHealthProps {
   data?: {
@@ -18,17 +18,22 @@ interface OSHealthProps {
 }
 
 const OSHealthWidget = ({ data, config }: OSHealthProps) => {
-  // Spring configurations for smooth, non-glitchy transitions
+  const [isExpanded, setIsExpanded] = useState(true);
+
   const springConfig = { damping: 20, stiffness: 100, mass: 0.5 };
   const cpuSpring = useSpring(0, springConfig);
   const memSpring = useSpring(0, springConfig);
   const batSpring = useSpring(100, springConfig);
 
+  const cpuPercent = Math.round(data?.cpu_percent || 0);
+  const memPercent = Math.round(data?.memory_percent || 0);
+  const batPercent = Math.round(data?.battery_percent ?? 100);
+
   useEffect(() => {
-    cpuSpring.set(data?.cpu_percent || 0);
-    memSpring.set(data?.memory_percent || 0);
-    batSpring.set(data?.battery_percent ?? 100);
-  }, [data, cpuSpring, memSpring, batSpring]);
+    cpuSpring.set(cpuPercent);
+    memSpring.set(memPercent);
+    batSpring.set(batPercent);
+  }, [cpuPercent, memPercent, batPercent, cpuSpring, memSpring, batSpring]);
 
   const stats = {
     isPluggedIn: data?.is_plugged_in ?? true,
@@ -36,84 +41,134 @@ const OSHealthWidget = ({ data, config }: OSHealthProps) => {
     activity: data?.active_window || "Standby",
   };
 
-  const StatBar = ({ label, springValue, icon: Icon, colorClass = "" }: { label: string; springValue: any; icon: any; colorClass?: string }) => {
+  const StatBar = ({
+    label,
+    value,
+    springValue,
+    icon: Icon,
+    color = "hsl(184 100% 50%)",
+  }: {
+    label: string;
+    value: number;
+    springValue: any;
+    icon: any;
+    color?: string;
+  }) => {
     const width = useTransform(springValue, (v: number) => `${Math.min(100, Math.max(0, v))}%`);
-    const displayValue = useTransform(springValue, (v: number) => Math.round(v));
-    
+
     return (
-      <div className="flex items-center gap-2">
-        <Icon className={`w-3 h-3 shrink-0 ${colorClass || "text-primary"}`} />
-        <span className="font-mono text-[10px] text-muted-foreground w-12 uppercase tracking-tighter">{label}</span>
-        <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+      <div className="space-y-1">
+        <div className="flex items-center justify-between font-mono text-[10px]">
+          <span className="flex items-center gap-1.5 text-slate-300">
+            <Icon className="w-3 h-3 text-primary shrink-0" />
+            <span className="tracking-wider uppercase">{label}</span>
+          </span>
+          <span className="font-semibold text-primary font-mono text-[10px]">
+            {value}%
+          </span>
+        </div>
+        <div className="h-1.5 rounded-full bg-black/40 border border-white/5 overflow-hidden p-[1px]">
           <motion.div
             className="h-full rounded-full"
-            style={{ 
+            style={{
               width,
-              background: "hsl(184 100% 50%)", // Default color
+              background: `linear-gradient(90deg, ${color}, hsl(278 99% 54% / 0.8))`,
+              boxShadow: `0 0 10px ${color}`,
             }}
           />
         </div>
-        <motion.span className="font-mono text-[10px] text-muted-foreground w-8 text-right">
-          {displayValue}
-        </motion.span>
       </div>
     );
   };
 
   return (
     <motion.div
-      className="glass-card p-4 w-72"
-      initial={{ opacity: 0, x: 30 }}
+      className="glass-deep rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden w-72 backdrop-blur-2xl transition-all"
+      initial={{ opacity: 0, x: 25 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.3 }}
+      transition={{ delay: 0.2 }}
     >
-      <div className="flex items-center justify-between mb-4">
+      {/* Widget Header */}
+      <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-white/10 bg-white/[0.02]">
         <div className="flex items-center gap-2">
-          <Activity className="w-3.5 h-3.5 text-primary" />
-          <h3 className="font-mono text-[10px] text-primary tracking-widest uppercase">System Awareness</h3>
+          <div className="relative">
+            <Activity className="w-3.5 h-3.5 text-primary" />
+            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
+          </div>
+          <h3 className="font-mono text-[11px] font-semibold text-primary tracking-[0.16em] uppercase">
+            OS Telemetry
+          </h3>
         </div>
-        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
-          <Shield className="w-2.5 h-2.5 text-primary" />
-          <span className="font-mono text-[9px] text-primary uppercase">{config?.environment || "DEV"}</span>
-        </div>
-      </div>
 
-      <div className="space-y-3">
-        <StatBar label="CPU" springValue={cpuSpring} icon={Cpu} />
-        <StatBar label="MEM" springValue={memSpring} icon={HardDrive} />
-        <StatBar 
-          label="PWR" 
-          springValue={batSpring}
-          icon={stats.isPluggedIn ? BatteryCharging : Battery} 
-          colorClass={stats.isPluggedIn ? "text-yellow-400" : ""}
-        />
-      </div>
-
-      <div className="mt-4 pt-3 border-t border-white/5 space-y-2.5">
-        <div className="flex items-start gap-2">
-          <Zap className="w-3 h-3 text-primary mt-0.5 shrink-0" />
-          <div className="flex flex-col gap-0.5">
-            <span className="font-mono text-[9px] text-muted-foreground uppercase leading-none">Biological State</span>
-            <span className={`font-mono text-[10px] uppercase tracking-wide ${stats.state.includes("Stressed") ? "text-red-400" : "text-primary"}`}>
-              {stats.state}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/25">
+            <Shield className="w-2.5 h-2.5 text-primary" />
+            <span className="font-mono text-[8px] font-bold text-primary tracking-wider uppercase">
+              {config?.environment || "DEV"}
             </span>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2 px-2 py-1.5 rounded bg-black/20 border border-white/5">
-          <Database className="w-2.5 h-2.5 text-muted-foreground" />
-          <span className="font-mono text-[9px] text-muted-foreground uppercase truncate">
-            Model: <span className="text-white/70">{config?.model || "LLAMA 3.2"}</span>
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 opacity-80 text-muted-foreground">
-          <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-glow" />
-          <span className="font-mono text-[9px] truncate" title={stats.activity}>
-             Focus: {stats.activity}
-          </span>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-slate-400 hover:text-white transition-colors p-0.5"
+            aria-label="Toggle telemetry details"
+          >
+            {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
         </div>
       </div>
+
+      {/* Widget Body */}
+      {isExpanded && (
+        <div className="p-3.5 space-y-3">
+          {/* Main Gauges */}
+          <div className="space-y-2.5">
+            <StatBar label="CPU Load" value={cpuPercent} springValue={cpuSpring} icon={Cpu} />
+            <StatBar label="RAM Usage" value={memPercent} springValue={memSpring} icon={HardDrive} color="hsl(278 99% 54%)" />
+            <StatBar
+              label={stats.isPluggedIn ? "PWR (AC)" : "Battery"}
+              value={batPercent}
+              springValue={batSpring}
+              icon={stats.isPluggedIn ? BatteryCharging : Battery}
+              color="hsl(45 100% 55%)"
+            />
+          </div>
+
+          {/* Biological State & Active Model */}
+          <div className="pt-2 border-t border-white/10 space-y-2">
+            <div className="flex items-center justify-between text-[10px] font-mono">
+              <span className="flex items-center gap-1 text-slate-400">
+                <Zap className="w-3 h-3 text-secondary" />
+                <span>STATE</span>
+              </span>
+              <span
+                className={`font-semibold tracking-wide uppercase ${
+                  stats.state.includes("Stressed") ? "text-rose-400" : "text-emerald-300"
+                }`}
+              >
+                {stats.state}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-[10px] font-mono px-2 py-1 rounded-lg bg-black/30 border border-white/5">
+              <span className="flex items-center gap-1.5 text-slate-400">
+                <Database className="w-3 h-3 text-primary" />
+                <span>AI CORE</span>
+              </span>
+              <span className="font-semibold text-slate-200 truncate max-w-[120px]">
+                {config?.model || "LLAMA 3.2"}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-[9px] font-mono text-slate-400 truncate px-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shrink-0" />
+              <span className="truncate" title={stats.activity}>
+                Focus: {stats.activity}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };

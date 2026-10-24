@@ -9,6 +9,16 @@ from agents.vision_mcp import take_screenshot, click_coordinates, type_text
 from agents.hank_mcp import scan_security_logs, get_hank_intel_summary
 from agents.atlas_mcp import atlas_search_web, atlas_recall_memory
 from agents.psyche_mcp import psyche_log_preference, psyche_analyze_emotion, psyche_get_profile
+from agents.lore_mcp import lore_deep_dive
+from agents.senses_mcp import scan_physical_environment, check_user_presence
+from agents.body_control_mcp import (
+    body_set_posture,
+    body_trigger_gesture,
+    body_control_fingers,
+    body_control_limbs,
+    body_get_status,
+    body_reset_to_neutral
+)
 from voice.human_voice_pipeline import HumanVoicePipeline
 
 class NexusMaster:
@@ -53,11 +63,23 @@ AVAILABLE TOOLS:
 53. <CALL: gmail_check_job_replies()> (CELO-APPLY: Scans Gmail via browser for job application reply emails, updates tracker, and notifies via WhatsApp)
 54. <CALL: autonomous_react_loop(query)> (ReAct: Autonomous reasoning engine for deep web research, email searching, and multi-step complex tasks)
 55. <CALL: generate_code_proposal(feature_request)> (Coder: Writes, sandboxes, and verifies a Python code proposal for a new feature)
+56. <CALL: lore_deep_dive(topic)> (Lore: Investigates mythology, culture, media, psychology, or deep conceptual trends)
+59. <CALL: scan_physical_environment()> (Senses: Scans the room through webcam with offline YOLOv8 to identify real-world physical objects)
+60. <CALL: check_user_presence()> (Senses: Uses camera face detection to verify whether the user is seated in front of the screen)
+61. <CALL: body_set_posture(posture)> (Body: Controls avatar posture and ground locomotive state e.g. walk, sit, idle, seiza, run)
+62. <CALL: body_trigger_gesture(gesture, emotion)> (Body: Expressive body language e.g. wave, nod, explain, point, clap, cheer, bow)
+63. <CALL: body_control_fingers(hand, finger_pose)> (Body: Controls all 30 finger joints e.g. relaxed, fist, point, peace, thumbs_up, open_palm)
+64. <CALL: body_control_limbs(head_pitch, head_yaw, left_arm_flex, right_arm_flex)> (Body: Fine-grained limb angles with twist prevention)
+65. <CALL: body_get_status()> (Body: Returns diagnostics of all 54 bone points and platform grounding)
+66. <CALL: body_reset_to_neutral()> (Body: Resets avatar posture and all bones to calm standing idle)
 
 CRITICAL ROUTING RULES:
 - If a task requires checking Gmail, reading emails, or performing multi-step deep web research (e.g., finding the "latest news" or "current consensus" across multiple sites/Reddit), you MUST use <CALL: autonomous_react_loop(THE FULL USER QUERY HERE)>! Do NOT use atlas_search_web or social_read_messages for these tasks.
 - If a task asks to write a script, generate a feature, or create code, you MUST use <CALL: generate_code_proposal(THE FULL USER QUERY HERE)>!
-- CRITICAL: When calling autonomous_react_loop or generate_code_proposal, you MUST copy the user's ENTIRE request as the argument string. NEVER pass the literal word "query" or "feature_request". Always pass the FULL text of what the user asked for.
+- If a task involves deep cultural meaning, mythology, book analysis, movie themes, or psychological breakdowns, use <CALL: lore_deep_dive(THE FULL USER QUERY HERE)>!
+- If a task asks what is on the desk, what objects are in the room, or what you see in the real world, use <CALL: scan_physical_environment()>!
+- If a task asks if the user is there or sitting at the desk, use <CALL: check_user_presence()>!
+- CRITICAL: When calling autonomous_react_loop, generate_code_proposal, or lore_deep_dive, you MUST copy the user's ENTIRE request as the argument string. NEVER pass the literal word "query" or "feature_request". Always pass the FULL text of what the user asked for.
 
 EXAMPLES:
 User: Open Spotify
@@ -404,6 +426,30 @@ If no tool is needed, simply converse naturally with the user.
                     return tool_name, f"Proposal Result: {result}"
                 except Exception as e:
                     return tool_name, f"Proposal Generation Failed: {e}"
+            elif tool_name == "lore_deep_dive":
+                return tool_name, lore_deep_dive(args_raw)
+            elif tool_name == "scan_physical_environment":
+                return tool_name, scan_physical_environment()
+            elif tool_name == "check_user_presence":
+                return tool_name, check_user_presence()
+            elif tool_name == "body_set_posture":
+                return tool_name, body_set_posture(args_raw.strip().strip("'\""))
+            elif tool_name == "body_trigger_gesture":
+                parts = [p.strip().strip("'\"") for p in args_raw.split(",")]
+                gesture = parts[0] if len(parts) > 0 else "idle"
+                emotion = parts[1] if len(parts) > 1 else "neutral"
+                return tool_name, body_trigger_gesture(gesture, emotion)
+            elif tool_name == "body_control_fingers":
+                parts = [p.strip().strip("'\"") for p in args_raw.split(",")]
+                hand = parts[0] if len(parts) > 0 else "both"
+                f_pose = parts[1] if len(parts) > 1 else "relaxed"
+                return tool_name, body_control_fingers(hand=hand, finger_pose=f_pose)
+            elif tool_name == "body_control_limbs":
+                return tool_name, body_control_limbs()
+            elif tool_name == "body_get_status":
+                return tool_name, body_get_status()
+            elif tool_name == "body_reset_to_neutral":
+                return tool_name, body_reset_to_neutral()
             else:
                 return tool_name, f"Error: Tool {tool_name} not found."
         except Exception as e:

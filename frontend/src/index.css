@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ───────────── Design Tokens ───────────── */
 @layer base {
   :root {
     --background: 234 33% 5%;
@@ -52,14 +53,16 @@
   }
 }
 
+/* ───────────── Base ───────────── */
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'Outfit', sans-serif;
+    overflow: hidden;
   }
 
   /* Custom scrollbar */
@@ -70,47 +73,244 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted));
+    background: hsl(var(--primary) / 0.25);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.5);
   }
+
+  /* Selection color */
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+    color: hsl(0 0% 100%);
+  }
 }
 
+/* ───────────── Glass Components ───────────── */
 @layer components {
+  /* -- Base Glass -- */
   .glass {
     background: hsl(var(--glass-bg));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
     border: 1px solid hsl(var(--glass-border));
   }
 
   .glass-card {
-    @apply glass rounded-xl;
+    @apply glass rounded-2xl;
+    box-shadow:
+      0 0 0 1px hsl(var(--glass-border)),
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.04),
+      0 4px 24px -4px hsl(234 33% 5% / 0.7);
   }
 
+  /* -- Deep Glass -- double frosted with inner highlight */
+  .glass-deep {
+    background: linear-gradient(
+      135deg,
+      hsl(234 33% 10% / 0.72) 0%,
+      hsl(234 33% 6% / 0.85) 100%
+    );
+    backdrop-filter: blur(32px) saturate(1.5);
+    -webkit-backdrop-filter: blur(32px) saturate(1.5);
+    border: 1px solid hsl(0 0% 100% / 0.06);
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.05),
+      0 8px 40px -8px hsl(234 33% 3% / 0.8);
+  }
+
+  /* -- Animated Gradient Border -- */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--glow-cyan) / 0.4),
+      hsl(var(--glow-purple) / 0.4),
+      hsl(var(--glow-cyan) / 0.15)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: border-rotate 6s linear infinite;
+  }
+
+  @keyframes border-rotate {
+    to { filter: hue-rotate(30deg); }
+  }
+
+  /* ───────── Glow Utilities ───────── */
   .glow-cyan {
-    box-shadow: 0 0 20px hsl(var(--glow-cyan) / 0.3), 0 0 60px hsl(var(--glow-cyan) / 0.1);
+    box-shadow:
+      0 0 20px hsl(var(--glow-cyan) / 0.2),
+      0 0 60px hsl(var(--glow-cyan) / 0.08),
+      inset 0 0 20px hsl(var(--glow-cyan) / 0.03);
   }
 
   .glow-purple {
-    box-shadow: 0 0 20px hsl(var(--glow-purple) / 0.3), 0 0 60px hsl(var(--glow-purple) / 0.1);
+    box-shadow:
+      0 0 20px hsl(var(--glow-purple) / 0.2),
+      0 0 60px hsl(var(--glow-purple) / 0.08),
+      inset 0 0 20px hsl(var(--glow-purple) / 0.03);
   }
 
   .glow-text-cyan {
-    text-shadow: 0 0 10px hsl(var(--glow-cyan) / 0.5), 0 0 30px hsl(var(--glow-cyan) / 0.2);
+    text-shadow:
+      0 0 8px hsl(var(--glow-cyan) / 0.6),
+      0 0 24px hsl(var(--glow-cyan) / 0.25),
+      0 0 48px hsl(var(--glow-cyan) / 0.1);
   }
 
   .glow-text-purple {
-    text-shadow: 0 0 10px hsl(var(--glow-purple) / 0.5), 0 0 30px hsl(var(--glow-purple) / 0.2);
+    text-shadow:
+      0 0 8px hsl(var(--glow-purple) / 0.6),
+      0 0 24px hsl(var(--glow-purple) / 0.25),
+      0 0 48px hsl(var(--glow-purple) / 0.1);
   }
 
+  .glow-border-cyan {
+    box-shadow:
+      0 0 12px hsl(var(--glow-cyan) / 0.15),
+      inset 0 0 12px hsl(var(--glow-cyan) / 0.05);
+    border-color: hsl(var(--glow-cyan) / 0.25);
+  }
+
+  .glow-border-purple {
+    box-shadow:
+      0 0 12px hsl(var(--glow-purple) / 0.15),
+      inset 0 0 12px hsl(var(--glow-purple) / 0.05);
+    border-color: hsl(var(--glow-purple) / 0.25);
+  }
+
+  /* ───────── Mono Tech Font ───────── */
   .font-mono-tech {
     font-family: 'Roboto Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* ───────── Holographic Scan Line ───────── */
+  .holo-scan {
+    position: relative;
+    overflow: hidden;
+  }
+  .holo-scan::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      hsl(var(--glow-cyan) / 0.03) 50%,
+      transparent 100%
+    );
+    height: 40%;
+    width: 100%;
+    animation: scan-line 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ───────── Shimmer / Loading Effect ───────── */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(0 0% 100% / 0.04) 50%,
+      transparent 100%
+    );
+    animation: shimmer-slide 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ───────── Corner Accent Dots ───────── */
+  .corner-accents {
+    position: relative;
+  }
+  .corner-accents::before,
+  .corner-accents::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  .corner-accents::before {
+    top: -3px;
+    left: -3px;
+    background: hsl(var(--glow-cyan));
+    box-shadow: 0 0 8px hsl(var(--glow-cyan) / 0.6);
+  }
+  .corner-accents::after {
+    bottom: -3px;
+    right: -3px;
+    background: hsl(var(--glow-purple));
+    box-shadow: 0 0 8px hsl(var(--glow-purple) / 0.6);
+    animation-delay: 1.5s;
+  }
+
+  /* ───────── Interactive Pill Button ───────── */
+  .pill-btn {
+    @apply rounded-full px-4 py-2 font-mono text-xs uppercase tracking-widest;
+    background: linear-gradient(135deg, hsl(234 33% 12% / 0.8), hsl(234 33% 8% / 0.9));
+    border: 1px solid hsl(0 0% 100% / 0.08);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .pill-btn:hover {
+    border-color: hsl(var(--glow-cyan) / 0.3);
+    box-shadow: 0 0 16px hsl(var(--glow-cyan) / 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* ───────── Stat Bar (Animated) ───────── */
+  .stat-bar-track {
+    @apply relative h-2 rounded-full overflow-hidden;
+    background: hsl(234 20% 12%);
+    box-shadow: inset 0 1px 2px hsl(234 33% 3% / 0.5);
+  }
+  .stat-bar-fill {
+    @apply h-full rounded-full;
+    background: linear-gradient(90deg, hsl(var(--glow-cyan)), hsl(var(--glow-cyan) / 0.6));
+    box-shadow: 0 0 8px hsl(var(--glow-cyan) / 0.4);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ───────── Notification Stripe ───────── */
+  .notif-stripe-info {
+    border-left: 3px solid hsl(var(--glow-cyan));
+    box-shadow: -4px 0 12px hsl(var(--glow-cyan) / 0.15);
+  }
+  .notif-stripe-warning {
+    border-left: 3px solid hsl(var(--glow-purple));
+    box-shadow: -4px 0 12px hsl(var(--glow-purple) / 0.15);
+  }
+  .notif-stripe-file {
+    border-left: 3px solid hsl(155 80% 50%);
+    box-shadow: -4px 0 12px hsl(155 80% 50% / 0.15);
   }
 }
 
+/* ───────────── Animations ───────────── */
 @layer utilities {
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
@@ -129,13 +329,55 @@
     to { transform: rotate(0deg); }
   }
   @keyframes scan-line {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
+    0% { transform: translateY(-120%); }
+    100% { transform: translateY(350%); }
+  }
+  @keyframes shimmer-slide {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+  @keyframes dash-march {
+    to { stroke-dashoffset: -20; }
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+  @keyframes typing-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes gradient-x {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes ring-pulse {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.5; }
   }
 
   .animate-float { animation: float 4s ease-in-out infinite; }
   .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
   .animate-spin-slow { animation: spin-slow 8s linear infinite; }
   .animate-spin-reverse { animation: spin-reverse 6s linear infinite; }
-  .animate-scan-line { animation: scan-line 2s linear infinite; }
+  .animate-scan-line { animation: scan-line 4s ease-in-out infinite; }
+  .animate-shimmer { animation: shimmer-slide 3s ease-in-out infinite; }
+  .animate-breathe { animation: breathe 4s ease-in-out infinite; }
+  .animate-typing { animation: typing-blink 1s step-end infinite; }
+  .animate-gradient-x { animation: gradient-x 4s ease infinite; background-size: 200% 200%; }
+  .animate-ring-pulse { animation: ring-pulse 2.5s ease-in-out infinite; }
+  .animate-dash-march { animation: dash-march 1s linear infinite; }
+}
+
+/* ───────────── Noise Texture Overlay (very subtle, premium feel) ───────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
 }

@@ -31,7 +31,7 @@ const SWAY = {
   secondaryAmp: 0.0002,
 };
 
-let initialized = false;
+const initializedModels = new WeakSet<VRM>();
 let swayPhase = 0;
 
 /**
@@ -70,7 +70,7 @@ export function initializeSpringBones(vrm: VRM) {
   // ─── Add sphere colliders to head & shoulders ───────────────────────
   setupColliders(vrm, manager);
 
-  initialized = true;
+  initializedModels.add(vrm);
   console.log('[SpringBone] Initialization complete');
 }
 
@@ -151,7 +151,7 @@ export function updateSpringBones(
   if (!manager) return;
 
   // Auto-init if not yet done
-  if (!initialized) {
+  if (!initializedModels.has(vrm)) {
     initializeSpringBones(vrm);
   }
 

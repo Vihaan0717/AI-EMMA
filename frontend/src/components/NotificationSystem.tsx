@@ -9,62 +9,66 @@ interface Notification {
   time: string;
 }
 
-const mockNotifications: Notification[] = [
-  { id: "1", type: "file", message: "main.py modified", time: "2s ago" },
-  { id: "2", type: "info", message: "Build completed successfully", time: "1m ago" },
-  { id: "3", type: "warning", message: "High memory usage detected", time: "5m ago" },
-];
-
 const NotificationSystem = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-
-  useEffect(() => {
-    // Simulate notifications arriving
-    const timeouts = mockNotifications.map((notif, idx) =>
-      setTimeout(() => {
-        setNotifications((prev) => [...prev, notif]);
-      }, (idx + 1) * 3000)
-    );
-    return () => timeouts.forEach(clearTimeout);
-  }, []);
 
   const dismiss = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  const iconMap = {
-    info: Bell,
-    warning: AlertCircle,
-    file: FileText,
-  };
-
-  const colorMap = {
-    info: "text-primary",
-    warning: "text-secondary",
-    file: "text-primary",
+  const configMap = {
+    info: {
+      icon: Bell,
+      border: "border-primary/40",
+      glow: "shadow-[0_0_12px_hsl(var(--glow-cyan)/0.15)]",
+      badge: "bg-primary/20 text-primary",
+    },
+    warning: {
+      icon: AlertCircle,
+      border: "border-amber-400/40",
+      glow: "shadow-[0_0_12px_rgba(251,191,36,0.15)]",
+      badge: "bg-amber-400/20 text-amber-300",
+    },
+    file: {
+      icon: FileText,
+      border: "border-secondary/40",
+      glow: "shadow-[0_0_12px_hsl(var(--glow-purple)/0.15)]",
+      badge: "bg-secondary/20 text-secondary",
+    },
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col-reverse gap-2 w-72">
+    <div className="fixed top-[22rem] right-4 z-30 flex flex-col gap-2 w-72 pointer-events-none">
       <AnimatePresence>
         {notifications.map((notif) => {
-          const Icon = iconMap[notif.type];
+          const cfg = configMap[notif.type];
+          const Icon = cfg.icon;
+
           return (
             <motion.div
               key={notif.id}
-              className="glass-card p-3 flex items-center gap-3"
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.9 }}
+              className={`glass-deep p-2.5 rounded-xl flex items-start gap-2.5 border ${cfg.border} ${cfg.glow} pointer-events-auto backdrop-blur-xl`}
+              initial={{ opacity: 0, x: 25, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 25, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
               layout
             >
-              <Icon className={`w-4 h-4 ${colorMap[notif.type]} shrink-0`} />
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-foreground">{notif.message}</p>
-                <p className="font-mono text-[10px] text-muted-foreground">{notif.time}</p>
+              <div className={`p-1.5 rounded-lg ${cfg.badge} shrink-0 mt-0.5`}>
+                <Icon className="w-3.5 h-3.5" />
               </div>
-              <button onClick={() => dismiss(notif.id)} className="text-muted-foreground hover:text-foreground transition-colors">
-                <X className="w-3 h-3" />
+
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-medium text-slate-100 leading-snug truncate">{notif.message}</p>
+                <p className="font-mono text-[9px] text-slate-400 mt-0.5">{notif.time}</p>
+              </div>
+
+              <button
+                onClick={() => dismiss(notif.id)}
+                className="text-slate-400 hover:text-white transition-colors p-0.5"
+                title="Dismiss"
+              >
+                <X className="w-3.5 h-3.5" />
               </button>
             </motion.div>
           );

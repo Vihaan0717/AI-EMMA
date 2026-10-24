@@ -60,13 +60,43 @@ const EMOTION_MODIFIERS: Record<EmotionType, EmotionModifiers> = {
     shoulderHeightOffset: 0.01,
     spineForwardLean: 0.03,
     headTilt: -0.04,
+    headRoll: 0.06,
+    headYaw: 0.08,
     breatheScale: 0.9,
+    eyeSquint: 0.22,
+    gazeOffset: { x: -0.22, y: 0.32 }, // cognitive upward gaze
   },
   serious: {
     shoulderHeightOffset: -0.02,
     spineForwardLean: -0.02,
     headTilt: -0.02,
     breatheScale: 1.0,
+    eyeSquint: 0.15,
+  },
+  wink: {
+    shoulderHeightOffset: -0.02,
+    spineForwardLean: -0.01,
+    headTilt: 0.03,
+    headRoll: 0.08,
+    breatheScale: 1.1,
+  },
+  smug: {
+    shoulderHeightOffset: -0.03,
+    spineForwardLean: -0.02,
+    headTilt: 0.06,
+    headYaw: -0.05,
+    breatheScale: 1.05,
+    eyeSquint: 0.18,
+    gazeOffset: { x: 0.05, y: 0.1 },
+  },
+  shy: {
+    shoulderHeightOffset: 0.04,
+    spineForwardLean: 0.03,
+    headTilt: -0.09,
+    headRoll: 0.05,
+    breatheScale: 1.15,
+    eyeSquint: 0.12,
+    gazeOffset: { x: 0.18, y: -0.32 }, // bashful downward-aside glance
   },
   // ─── Illness states ───────────────────────────────────────────────
   fever: {

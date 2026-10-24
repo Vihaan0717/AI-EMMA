@@ -1,68 +1,60 @@
 import os
 import logging
+import asyncio
 try:
-    from twilio.rest import Client
-    TWILIO_AVAILABLE = True
+    from telegram import Bot
+    from telegram.constants import ParseMode
+    TELEGRAM_AVAILABLE = True
 except ImportError:
-    TWILIO_AVAILABLE = False
-    Client = None
+    TELEGRAM_AVAILABLE = False
+    Bot = None
+    ParseMode = None
 
 from typing import Optional
+from config.system_config import JarvisConfig
 
 logger = logging.getLogger("CallService")
 
 class CallService:
     """
-    Emergency Voice Call Service (via Twilio).
-    Used when JARVIS needs to ring the boss's physical phone.
+    Emergency Alert Service (via Telegram).
+    Replaces Twilio. Used when JARVIS needs to send an urgent alert to the boss.
     """
     def __init__(self):
-        self.sid = os.getenv("TWILIO_SID")
-        self.token = os.getenv("TWILIO_AUTH_TOKEN")
-        self.from_number = os.getenv("TWILIO_FROM_NUMBER")
-        self.admin_number = os.getenv("ADMIN_NUMBER")
+        self.token = JarvisConfig.TELEGRAM_TOKEN
+        self.admin_chat_id = JarvisConfig.AUTHORIZED_CHAT_ID
         
-        self.client = None
-        if not TWILIO_AVAILABLE:
-            logger.warning("Twilio library not installed. Emergency calls disabled.")
-        elif self.sid and self.token:
+        self.bot = None
+        if not TELEGRAM_AVAILABLE:
+            logger.warning("Telegram library not installed. Emergency alerts disabled.")
+        elif self.token and self.admin_chat_id:
             try:
-                self.client = Client(self.sid, self.token)
-                logger.info("Call Service (Twilio) initialized.")
+                self.bot = Bot(token=self.token)
+                logger.info("Call Service (Telegram) initialized.")
             except Exception as e:
-                logger.error(f"Failed to initialize Twilio: {e}")
+                logger.error(f"Failed to initialize Telegram Bot: {e}")
         else:
-            logger.warning("Twilio credentials missing. Emergency calls disabled.")
+            logger.warning("Telegram credentials missing. Emergency alerts disabled.")
 
     async def make_emergency_call(self, message_telugu: str):
         """
-        Makes a physical phone call and speaks the message in Telugu.
+        Sends an urgent, high-priority alert to Telegram mimicking an emergency call.
         """
-        if not self.client or not self.admin_number:
-            logger.error("Call Service not configured for Twilio.")
+        if not self.bot or not self.admin_chat_id:
+            logger.error("Call Service not configured for Telegram.")
             return False
 
         try:
-            # TwiML for Telugu speech
-            twiml = f'''
-            <Response>
-                <Say language="te-IN" voice="Polly.Aditi">
-                    Namaste Boss. Idi JARVIS. {message_telugu}
-                </Say>
-                <Pause length="1"/>
-                <Say language="te-IN">Repeat chestunnanu.</Say>
-                <Say language="te-IN">{message_telugu}</Say>
-            </Response>
-            '''
+            alert_text = f"🚨 *EMERGENCY ALERT* 🚨\n\nNamaste Boss. Idi JARVIS.\n\n{message_telugu}"
             
-            call = self.client.calls.create(
-                to=self.admin_number if "+" in self.admin_number else f"+{self.admin_number}",
-                from_=self.from_number,
-                twiml=twiml
+            await self.bot.send_message(
+                chat_id=self.admin_chat_id,
+                text=alert_text,
+                parse_mode=ParseMode.MARKDOWN
             )
             
-            logger.info(f"🚨 EMERGENCY CALL INITIATED: {call.sid}")
+            logger.info("🚨 EMERGENCY TELEGRAM ALERT INITIATED")
             return True
         except Exception as e:
-            logger.error(f"Emergency call failed: {e}")
+            logger.error(f"Emergency Telegram alert failed: {e}")
             return False

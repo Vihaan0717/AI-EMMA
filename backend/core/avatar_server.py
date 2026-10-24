@@ -5,6 +5,16 @@ import threading
 import queue
 import time
 from concurrent.futures import ProcessPoolExecutor
+import os
+import sys
+
+_backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path:
+    sys.path.insert(0, _root_dir)
+
 from core.logger import get_logger
 from agents.vision_agent import VisionTracker
 from config.system_config import JarvisConfig
@@ -124,6 +134,39 @@ class AvatarServer:
                     self._enqueue_broadcast({"type": "CODE_RESULT", "code": code_response})
 
                 threading.Thread(target=run_ai, daemon=True).start()
+
+            elif msg_type == "AVATAR_CONTROL":
+                # The browser director sends normalized LLM output here.  Keep the
+                # protocol intentionally small so another LLM/TTS provider can
+                # drive the same realtime VRM renderer without a frontend change.
+                emotion = data.get("emotion") or "neutral"
+                gesture = data.get("gesture") or "idle"
+                text = data.get("text") or ""
+                features = data.get("features") or {}
+                audio_url = data.get("audio_url")
+
+                await self._broadcast({
+                    "type": "AI_RESPONSE",
+                    "text": text,
+                    "emotion": emotion,
+                    "gesture": gesture,
+                    "features": features,
+                })
+
+                if features:
+                    await self._broadcast({
+                        "type": "AVATAR_CONFIG",
+                        "features": features,
+                    })
+
+                # A generated or hosted speech track activates the frontend's
+                # WebAudio amplitude analyser, which drives the VRM visemes.
+                if isinstance(audio_url, str) and audio_url:
+                    await self._broadcast({"type": "PLAY_AUDIO", "url": audio_url})
+
+            elif msg_type in ("BODY_CONTROL", "LIMB_CONTROL", "FINGER_CONTROL"):
+                logger.info(f"Relaying {msg_type} to avatar clients: {data}")
+                await self._broadcast(data)
 
         except Exception as e:
             logger.error(f"Error handling UI message: {e}")

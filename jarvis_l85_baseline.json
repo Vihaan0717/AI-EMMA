@@ -1,0 +1,10 @@
+{
+    "idle_cpu_percent": 5.0,
+    "idle_ram_mb": 9750.16,
+    "test_duration_seconds": 73.04,
+    "scheduler_avg_cpu_percent": 0.02,
+    "scheduler_peak_cpu_percent": 15.6,
+    "scheduler_avg_ram_mb": 4.21,
+    "scheduler_peak_ram_mb": 4.23,
+    "database_size_mb": 0
+}

@@ -60,6 +60,7 @@ mongodb/
 mongodb.zip
 JARVIS-v2/arion/whatsapp/.wwebjs_auth/
 *.vrm
+!frontend/public/avatars/*.vrm
 *.pdb
 *.zip
 *.tar.gz

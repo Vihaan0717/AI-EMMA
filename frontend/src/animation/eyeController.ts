@@ -19,13 +19,23 @@ export class EyeController {
   
   private blinkOverrideLeft?: number;
   private blinkOverrideRight?: number;
-
-  // (No longer using vrm.lookAt Target)
-  // private lookAtTarget = new THREE.Object3D();
+  private baseEyelids = { left: 0, right: 0 };
+  private gazeOffset = { x: 0, y: 0 };
 
   setLookAt(yaw: number, pitch: number) {
-    this.targetX = yaw;
-    this.targetY = pitch;
+    this.targetX = yaw + this.gazeOffset.x;
+    this.targetY = pitch + this.gazeOffset.y;
+  }
+
+  setGazeOffset(x: number, y: number) {
+    this.gazeOffset = { x, y };
+  }
+
+  setBaseEyelids(left: number, right: number) {
+    this.baseEyelids = {
+      left: Math.max(0, Math.min(1, left)),
+      right: Math.max(0, Math.min(1, right)),
+    };
   }
 
   forceBlink() {
@@ -45,13 +55,13 @@ export class EyeController {
       vrm.lookAt.autoUpdate = false;
     }
 
-    // --- Natural blinking ---
+    // --- Natural blinking (paused if eyes are held completely wide in surprise) ---
     this.blinkTimer += delta;
     if (this.blinkTimer >= this.nextBlinkAt) {
       this.blinkValue = 1;
       this.blinkTimer = 0;
-      // Random interval: 2-5 seconds, occasionally double-blink
-      this.nextBlinkAt = 2 + Math.random() * 3;
+      // Random interval: 2.5 - 5.5 seconds, with occasional quick double-blink
+      this.nextBlinkAt = 2.5 + Math.random() * 3.0;
     }
 
     // Decay blink
@@ -60,13 +70,49 @@ export class EyeController {
     }
 
     if (vrm.expressionManager) {
+      let finalLeft: number;
+      let finalRight: number;
+
       if (this.blinkOverrideLeft !== undefined && this.blinkOverrideRight !== undefined) {
-         vrm.expressionManager.setValue('blinkLeft', this.blinkOverrideLeft);
-         vrm.expressionManager.setValue('blinkRight', this.blinkOverrideRight);
+        finalLeft = this.blinkOverrideLeft;
+        finalRight = this.blinkOverrideRight;
       } else {
-         vrm.expressionManager.setValue('blinkLeft', this.blinkValue);
-         vrm.expressionManager.setValue('blinkRight', this.blinkValue);
+        finalLeft = Math.min(1.0, this.baseEyelids.left + this.blinkValue);
+        finalRight = Math.min(1.0, this.baseEyelids.right + this.blinkValue);
       }
+
+      this.applyEyelidExpressions(vrm, finalLeft, finalRight);
+    }
+  }
+
+  private applyEyelidExpressions(vrm: VRM, left: number, right: number): void {
+    if (!vrm.expressionManager) return;
+
+    const setExpr = (name: string, val: number) => {
+      if (!vrm.expressionManager) return;
+      if (vrm.expressionManager.getExpression(name)) {
+        vrm.expressionManager.setValue(name, val);
+        return;
+      }
+      const lower = name.toLowerCase();
+      for (const expr of vrm.expressionManager.expressions) {
+        if (expr.expressionName.toLowerCase() === lower) {
+          vrm.expressionManager.setValue(expr.expressionName, val);
+          return;
+        }
+      }
+    };
+
+    setExpr('blinkLeft', left);
+    setExpr('blinkRight', right);
+    setExpr('blink_l', left);
+    setExpr('blink_r', right);
+
+    if (Math.abs(left - right) < 0.05) {
+      setExpr('blink', Math.max(left, right));
+    } else {
+      // Asymmetric blink (e.g. wink): clear symmetric blink
+      setExpr('blink', 0);
     }
   }
 

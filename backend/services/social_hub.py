@@ -1,9 +1,14 @@
+import os
+import sys
 import asyncio
 import logging
 from typing import Dict, List, Any
 # We will use playwright for personal account scraping.
 # Ensure you run `playwright install` and login manually to save state.
 from playwright.async_api import async_playwright, Page, BrowserContext
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from core.agent_result import AgentResult
 
 logger = logging.getLogger("jarvis.social_hub")
 
@@ -78,7 +83,14 @@ class SocialHub:
         
         total = len(wa_msgs) + len(ig_msgs)
         if total == 0:
-            return "All quiet on the digital front, sir. No new messages on WhatsApp or Instagram."
+            return AgentResult(
+                status="success",
+                confidence=1.0,
+                sources=["WhatsApp", "Instagram"],
+                answer="All quiet on the digital front, sir. No new messages on WhatsApp or Instagram.",
+                needs_verification=False,
+                errors=[]
+            ).to_json()
             
         summary = f"You have {total} new updates. "
         if wa_msgs:
@@ -86,7 +98,14 @@ class SocialHub:
         if ig_msgs:
             summary += f"You have {len(ig_msgs)} new direct messages on Instagram. "
             
-        return summary
+        return AgentResult(
+            status="success",
+            confidence=0.9,
+            sources=["WhatsApp", "Instagram"],
+            answer=summary,
+            needs_verification=False,
+            errors=[]
+        ).to_json()
 
     async def read_social_messages(self, platform: str) -> str:
         """Reads detailed unread messages from a given platform."""
@@ -96,14 +115,36 @@ class SocialHub:
         elif platform == "instagram":
             return await self._read_instagram_details()
         else:
-            return f"Platform '{platform}' is not supported for reading yet."
+            return AgentResult(
+                status="error",
+                confidence=0.0,
+                sources=[],
+                answer="",
+                needs_verification=False,
+                errors=[f"Platform '{platform}' is not supported for reading yet."]
+            ).to_json()
 
     async def _read_whatsapp_details(self) -> str:
-        if not self.wa_page: return "WhatsApp not connected."
+        if not self.wa_page: 
+            return AgentResult(
+                status="error",
+                confidence=0.0,
+                sources=["WhatsApp"],
+                answer="",
+                needs_verification=True,
+                errors=["WhatsApp not connected."]
+            ).to_json()
         # Locate unread chat rows and grab the text from the preview snippet.
         unread_chats = await self.wa_page.query_selector_all("div[role='listitem']:has(span[aria-label*='unread message'])")
         if not unread_chats:
-            return "There are no unread WhatsApp messages."
+            return AgentResult(
+                status="success",
+                confidence=1.0,
+                sources=["WhatsApp"],
+                answer="There are no unread WhatsApp messages.",
+                needs_verification=False,
+                errors=[]
+            ).to_json()
         
         details = []
         for chat in unread_chats:
@@ -113,16 +154,45 @@ class SocialHub:
             snippet = text_content.replace('\n', ' ').strip()
             details.append(f"From {title}: {snippet}")
         
-        return "WhatsApp unread chats: " + " | ".join(details)
+        return AgentResult(
+            status="success",
+            confidence=0.8,
+            sources=["WhatsApp"],
+            answer="WhatsApp unread chats: " + " | ".join(details),
+            needs_verification=False,
+            errors=[]
+        ).to_json()
 
     async def _read_instagram_details(self) -> str:
-        if not self.ig_page: return "Instagram not connected."
+        if not self.ig_page: 
+            return AgentResult(
+                status="error",
+                confidence=0.0,
+                sources=["Instagram"],
+                answer="",
+                needs_verification=True,
+                errors=["Instagram not connected."]
+            ).to_json()
         # Instagram DM DOM is notoriously obscure; we approximate by reading the list item text
         unread_dms = await self.ig_page.query_selector_all("div[class*='x1lliihq'][class*='x1n2onr6']")
         if not unread_dms:
-            return "There are no unread Instagram messages."
+            return AgentResult(
+                status="success",
+                confidence=1.0,
+                sources=["Instagram"],
+                answer="There are no unread Instagram messages.",
+                needs_verification=False,
+                errors=[]
+            ).to_json()
         
-        return f"You have {len(unread_dms)} unread Instagram threads. Note: Full content scraping requires clicking into each thread, which is currently in beta."
+        return AgentResult(
+            status="success",
+            confidence=0.5,
+            sources=["Instagram"],
+            answer=f"You have {len(unread_dms)} unread Instagram threads. Note: Full content scraping requires clicking into each thread, which is currently in beta.",
+            needs_verification=True,
+            errors=[]
+        ).to_json()
 
     async def close(self):
         if self.context:
