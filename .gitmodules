@@ -1,3 +1,6 @@
 [submodule "anime-kinetics-studio"]
 	path = anime-kinetics-studio
 	url = https://github.com/Vihaan0717/anime-kinetics-studio.git
+[submodule "ava_agent"]
+	path = ava_agent
+	url = https://github.com/hkjarral/AVA-AI-Voice-Agent-for-Asterisk.git
