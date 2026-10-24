@@ -67,7 +67,7 @@ async def _send_ws_payload(payload: dict) -> bool:
     """Sends command payload to WebSocket server on ws://127.0.0.1:8765."""
     try:
         import websockets
-        async with websockets.connect(WS_URL, open_timeout=2.0) as ws:
+        async with websockets.connect(WS_URL, open_timeout=0.4) as ws:
             await ws.send(json.dumps(payload))
             return True
     except Exception as e:
@@ -78,7 +78,7 @@ def _dispatch_command(payload: dict) -> bool:
     """Synchronous wrapper to fire async websocket dispatch with timeout."""
     try:
         loop = asyncio.new_event_loop()
-        success = loop.run_until_complete(asyncio.wait_for(_send_ws_payload(payload), timeout=2.5))
+        success = loop.run_until_complete(asyncio.wait_for(_send_ws_payload(payload), timeout=0.6))
         loop.close()
         return success
     except Exception as e:

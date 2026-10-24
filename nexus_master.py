@@ -20,10 +20,12 @@ from agents.body_control_mcp import (
     body_reset_to_neutral
 )
 from voice.human_voice_pipeline import HumanVoicePipeline
+from backend.services.needle_router import NeedleDecisionRouter
 
 class NexusMaster:
     def __init__(self):
         self.router = HybridRouter()
+        self.needle_router = NeedleDecisionRouter()
         self.pipeline = HumanVoicePipeline()
         self.chat_history = []
         self.system_prompt = """
@@ -455,9 +457,49 @@ If no tool is needed, simply converse naturally with the user.
         except Exception as e:
             return tool_name, f"Error executing {tool_name}: {e}"
 
+    def process_query(self, user_input: str):
+        """
+        Processes a user query by evaluating the Needle 3 on-device fast-path first (<20ms).
+        If a pure command is matched, executes immediately without invoking heavy cloud/local LLMs.
+        If an informational query is matched, triggers expressive avatar cues in real-time
+        and falls back to HybridRouter / ReAct / Council for full reasoning.
+        Returns: (tool_name, tool_result_or_llm_response)
+        """
+        user_input_clean = user_input.strip()
+        if not user_input_clean:
+            return None, ""
+
+        # 1. On-Device Fast-Path via Needle 3
+        if self.needle_router and self.needle_router.is_available:
+            fast_decision = self.needle_router.route(user_input_clean)
+            if fast_decision:
+                if fast_decision.get("is_pure_command", False):
+                    latency = fast_decision.get("latency_ms", 0.0)
+                    print(f"[NEEDLE-3 FAST-PATH {latency:.1f}ms] Matched tool: {fast_decision.get('tool')}")
+                    tool_name, tool_result = self.needle_router.execute_fast_decision(fast_decision)
+                    return tool_name, tool_result
+                else:
+                    # Informational request: trigger avatar kinematics & emotional cue in background
+                    print(f"[NEEDLE-3 EXPRESSIVE ACCOMPANIMENT] Posture/Gesture: {fast_decision.get('gesture')}, Emotion: {fast_decision.get('emotion')}")
+                    self.needle_router.execute_fast_decision(fast_decision)
+
+        # 2. Main LLM Reasoning Path
+        history_context = ""
+        if self.chat_history:
+            history_context = "--- CHAT HISTORY ---\n" + "\n".join(self.chat_history[-5:]) + "\n--------------------\n"
+
+        full_prompt = self.system_prompt + "\n" + history_context + "User: " + user_input_clean + "\nYou: "
+        print("[NEXUS] Thinking...")
+        llm_response = self.router.execute(full_prompt)
+
+        tool_name, tool_result = self.parse_and_execute_tool(llm_response)
+        if tool_result:
+            return tool_name, tool_result
+        return None, llm_response
+
     def run_loop(self):
         print("\n===================================================")
-        print("            ALL SYSTEMS ONLINE. ")
+        print("            ALL SYSTEMS ONLINE. (NEEDLE 3 FAST-PATH ACTIVE)")
         print("===================================================\n")
         self.pipeline.speak("NEXUS Master Brain is online and awaiting commands.", agent_id="jarvis_core")
         
@@ -470,35 +512,17 @@ If no tool is needed, simply converse naturally with the user.
                 
                 if not user_input.strip():
                     continue
-                
-                # Build the memory context (last 5 turns)
-                history_context = ""
-                if self.chat_history:
-                    history_context = "--- CHAT HISTORY ---\n" + "\n".join(self.chat_history[-5:]) + "\n--------------------\n"
-                
-                # Combine system prompt, history, and user input
-                full_prompt = self.system_prompt + "\n" + history_context + "User: " + user_input + "\nYou: "
-                
-                # Send to Hybrid Router
-                print("[NEXUS] Thinking...")
-                llm_response = self.router.execute(full_prompt)
-                
-                # Append to history
+
+                tool_name, result = self.process_query(user_input)
                 self.chat_history.append(f"User: {user_input}")
-                
-                # Check if it's a tool call
-                tool_name, tool_result = self.parse_and_execute_tool(llm_response)
-                
-                if tool_result:
-                    print(f"\n{tool_result}\n")
-                    self.chat_history.append(f"System Tool Result: {tool_result}")
+
+                if tool_name:
+                    print(f"\n{result}\n")
+                    self.chat_history.append(f"System Tool Result: {result}")
                     
                     # Voice routing based on Agent using Kokoro XTTSv2 mapping
-                    # Strip bracketed tags from the string if we don't want the engine to literally read "[HANK]"
-                    clean_speech = re.sub(r'\[[A-Z]+\]', '', str(tool_result)).strip()
-                    
+                    clean_speech = re.sub(r'\[[A-Z0-9\-\s\.]+\]', '', str(result)).strip()
                     if len(clean_speech) > 1000:
-                        # Fallback truncation for any extremely long tool result to prevent Kokoro crash
                         clean_speech = clean_speech[:1000] + "... I have printed the rest of the output to your terminal."
                         
                     if tool_name in ["scan_security_logs", "get_hank_intel_summary"]:
@@ -510,9 +534,9 @@ If no tool is needed, simply converse naturally with the user.
                     else:
                         self.pipeline.speak(clean_speech, agent_id="jarvis_core")
                 else:
-                    print(f"[JARVIS]: {llm_response}")
-                    self.chat_history.append(f"You: {llm_response}")
-                    self.pipeline.speak(llm_response, agent_id="jarvis_core")
+                    print(f"[JARVIS]: {result}")
+                    self.chat_history.append(f"You: {result}")
+                    self.pipeline.speak(result, agent_id="jarvis_core")
                     
             except KeyboardInterrupt:
                 print("\nShutting down NEXUS-X.")
